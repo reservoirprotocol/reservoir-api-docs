@@ -1,0 +1,52 @@
+---
+title: "Scroll NFT API"
+description: "Learn how to access Scroll NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with Scroll on Reservoir
+
+Reservoir offers access to Scroll & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **Scroll API Base URL** - You can access all Reservoir APIs by using the `https://api-scroll.reservoir.tools/` base URL. When using the API reference docs for Scroll, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended Scroll NFT collection to test with is [Scroll X Genesis](https://explorer.reservoir.tools/scroll/collection/0xe1045afc3abd65bb728a90a011924b0d64c6bf86) contract address: `0xe1045afc3abd65bb728a90a011924b0d64c6bf86`. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, checkout our reference [Scroll marketplace](https://explorer.reservoir.tools/Scroll).
+
+## Access Scroll Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across all major marketplaces including Opensea, Blur, X2Y2, and more. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated Scroll Listings](/reference/getordersasksv5) - [sample response](https://api-scroll.reservoir.tools/orders/asks/v5?contracts=0xe1045afc3abd65bb728a90a011924b0d64c6bf86)
+* [Get Aggregated Scroll Offers](/reference/getordersbidsv6) - [sample response](https://api-scroll.reservoir.tools/orders/bids/v6)
+* [Get Scroll Floor Prices](/reference/getcollectionsv7) - [sample response](https://api-scroll.reservoir.tools/collections/v7?contract=0xe1045afc3abd65bb728a90a011924b0d64c6bf86)
+* [Get Scroll Sales Volume](/reference/getcollectionsdailyvolumesv1) - [sample response](https://api-scroll.reservoir.tools/collections/daily-volumes/v1?id=0xe1045afc3abd65bb728a90a011924b0d64c6bf86)
+* [Get Scroll Collection Metadata](/reference/gettokensv6) - [sample response](https://api-scroll.reservoir.tools/tokens/v6?collection=0xe1045afc3abd65bb728a90a011924b0d64c6bf86)
+
+## Trading on Scroll with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On Scroll, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy Scroll NFTs](/reference/postexecutebuyv7)
+* [Sell Scroll NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have Scroll support. Check out our list and bid endpoints below:
+
+* [List Scroll NFTs](/reference/postexecutelistv5)
+* [Bid on Scroll NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on Scroll
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full Scroll support.
+
+# Understanding Scroll
+
+Scroll is a Layer 2 scaling solution designed to enhance the Ethereum ecosystem by providing a scalable, secure, and developer-friendly platform, particularly beneficial for NFT marketplaces. It focuses on maintaining the decentralized, trust-minimized nature of Ethereum while improving transaction efficiency and reducing costs.
+
+## Scroll Blockchain Features
+
+1. **Enhanced Transaction Efficiency:** Scroll enables more rapid transaction processing, improving user experience in NFT marketplaces.
+2. **Cost Reduction:** It significantly lowers transaction fees, making it economically viable for NFT creators and traders.
+3. **Developer-Friendly:** With EVM compatibility, developers can easily migrate and build on Scroll without major changes to their existing Ethereum applications.
+4. **Robust Security:** Utilizing zero-knowledge proof technology, Scroll provides a secure layer for transactions, ensuring the safety of digital assets.

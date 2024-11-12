@@ -1,0 +1,45 @@
+---
+title: "Collect"
+description: "Create a seamless embedded purchase experience with Collect."
+---
+
+Reservoir supports a seamless purchase experience through **Collect**. The concept of collect blends the line between primary and secondary liquidity. Allowing builders to embed secondary purchases into the same button that users mint from, once a collection sells out.
+
+<Info>
+  Traditionally, the digital asset world has been divided into two main phases:
+
+  **Minting:** This is where digital assets are born, created by creators on specific platforms.
+
+  **Secondary Sales:** After minting, any further sales of the asset occur on secondary marketplaces.
+
+  These two stages have often been distinct, leading to a disjointed user experience, with potential buyers having to navigate between different platforms. This fragmentation can lead to the following negative outcomes:
+
+  * Frictioned purchasing experience
+  * Lost users when directed elsewhere
+  * Barrier to engage & convert web2 audiences
+</Info>
+
+# Create a seamless purchase experience with Collect
+
+The new "Collect" approach blends minting and resale into one continuous process. Users can now "collect" or acquire assets at any stage, without hopping between platforms. This not only simplifies the buying journey but also ensures a smoother and more unified experience.
+
+In essence, "Collect" streamlines the once fragmented process of acquiring digital assets, making it more intuitive and user-friendly. Another added benefit to integrating "collect" is the ability to **[add fees on mints & secondary sales](/docs/custom-fees#setting-feesontop).**
+
+![](/images/docs/b84fc6c-collect.gif)
+
+# Collect Modal / Reservoirkit
+
+Reservoirkit's Collect Modal is a React component that serves as a ready-to-ship solution for those wanting to integrate "collect". The Collect Modal automatically mints assets when available and sources from the lowest secondary market listing otherwise. Learn about integration on our [Collect Modal docs](/reference/collectmodal-mint-sweep).
+
+![](/images/docs/6b0fdec-image.png)
+
+# Integrate Collect with API & SDK
+
+If you already have an existing mint button on your site, you can simply use the API or SDK to unify the purchase experience by linking to secondary. To collect tokens via Reservoir's API you can call the [Buy Tokens](/reference/postexecutebuyv7) endpoint & with the SDK you can use the [buyToken ](/reference/buytoken)action. By default when purchasing a token through this method it will set the fillType to `preferMint`. `preferMint` will attempt to mint the token, if the token is already minted, then it will purchase the token from aggregated secondary markets. If you only want to execute secondary purchases, set the fill type to `trade`.
+
+***
+
+What’s Next
+
+* [Minting](/docs/minting)
+* [CollectModal (Mint + Sweep)](/reference/collectmodal-mint-sweep)

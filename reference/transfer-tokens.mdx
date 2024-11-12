@@ -1,0 +1,44 @@
+---
+title: "transferTokens"
+description: "This action can be used to transfer tokens between wallets"
+---
+
+You can supply an object of parameters listed below:
+
+| Parameter      | Description                                                                                                                                                                  | Required | Example                                                                                      |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------- |
+| **to**         | The address to send the wallet to                                                                                                                                            | `true`   | `"0xfbff2739978790aa7655fb1b75bb1811e347c1fd"`                                               |
+| **wallet**     | A valid [WalletClient](https://viem.sh/docs/clients/wallet.html) from viem or a ReservoirWallet generated from an adapter. Learn more about [adapters](/reference/adapters). | `true`   | Refer to viem's documentation on [WalletClients](https://viem.sh/docs/clients/wallet.html)\_ |
+| **onProgress** | Callback to update UI state as execution progresses. Can also be used to get the transaction hash for a given step item.                                                     | `true`   | `(steps) => { console.log(steps) }`                                                          |
+| **items**      | List of items to transfer                                                                                                                                                    | `false`  | \[\{token: '0x30385bce01da4b415cae1db21d41e9f6eab3ba50:127', quantity: 1}]                   |
+| **chainId**    | Override the current active chain                                                                                                                                            | `false`  | 1                                                                                            |
+
+**Example**
+
+<CodeGroup>
+  ```typescript typescript
+  import { getClient, Execute } from "@reservoir0x/reservoir-sdk";
+  import { createWalletClient, http } from 'viem'
+
+  ...
+
+  wallet = createWalletClient({
+    account: address,
+    transport: http()
+  })
+
+  getClient().actions.transferTokens({
+    to: to,
+    items: [
+      {
+        token: token,
+        quantity: quantity ?? 1,
+      },
+    ],
+    wallet: wallet,
+    onProgress: (steps) => {
+      console.log(steps)
+    },
+  })
+  ```
+</CodeGroup>

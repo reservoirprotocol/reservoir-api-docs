@@ -1,0 +1,319 @@
+---
+title: "Collections"
+description: "Subscribe to `collection` events to get real-time access to collections (created/updated) or keep a copy of Reservoir's aggregated orderbook in sync."
+---
+
+## How to Subscribe
+
+View instructions [here](/reference/websockets#interacting-with-the-websocket).
+
+## Subscription Options
+
+|             | Value                    | Description                                                                            |
+| ----------- | ------------------------ | -------------------------------------------------------------------------------------- |
+| **Event**   | collection.created       | When a collection is created (first token minted)                                      |
+|             | collection.updated       | When a collection is updated.                                                          |
+|             | collection.\*            | All collection events (created and updated)                                            |
+| **Filters** | id                       | Filter to one or more collection-ids (e.g. 0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63) |
+| **Changed** | slug                     |                                                                                        |
+|             | name                     |                                                                                        |
+|             | metadata                 |                                                                                        |
+|             | royalties                |                                                                                        |
+|             | tokenSetId               |                                                                                        |
+|             | rank.1day                |                                                                                        |
+|             | rank.7day                |                                                                                        |
+|             | rank.30day               |                                                                                        |
+|             | rank.allTime             |                                                                                        |
+|             | volume.1day              |                                                                                        |
+|             | volume.7day              |                                                                                        |
+|             | volume.30day             |                                                                                        |
+|             | volume.allTime           |                                                                                        |
+|             | volumeChange.1day        |                                                                                        |
+|             | volumeChange.7day        |                                                                                        |
+|             | volumeChange.30day       |                                                                                        |
+|             | floorSale.1day           |                                                                                        |
+|             | floorSale.7day           |                                                                                        |
+|             | floorSale.30day          |                                                                                        |
+|             | tokenCount               |                                                                                        |
+|             | ownerCount               |                                                                                        |
+|             | floorAsk.id              |                                                                                        |
+|             | floorAsk.price           |                                                                                        |
+|             | floorAskNormalized.id    |                                                                                        |
+|             | floorAskNormalized.price |                                                                                        |
+|             | floorAskNonFlagged.id    |                                                                                        |
+|             | floorAskNonFlagged.price |                                                                                        |
+|             | topBid.id                |                                                                                        |
+|             | topBid.value             |                                                                                        |
+|             | onSaleCount              |                                                                                        |
+
+## Update Types
+
+Any time any field in the response is updated, a `token.updated` event will be emitted. That includes image urls, metadata changes, etc. Below are some example of what can change.
+
+| Key                | Value   | Description                                                         |
+| ------------------ | ------- | ------------------------------------------------------------------- |
+| metadata           |         | Metadata can be updated to reflect new imageUrl and more.           |
+| tokenCount         | integer | Token count can change to reflect minted or burned tokens.          |
+| royalties          |         | The royalty amount (bps) or recipient can change over time.         |
+| topBid             |         | Every time the topBid value changes.                                |
+| rank               |         | When the rank changes for 1day, 7day, 30day, or allTime.            |
+| volume             |         | When the volume changes for 1day, 7day, 30day, or allTime.          |
+| volumeChange       |         | When the volumeChange changes for 1day, 7day, 30day, or allTime.    |
+| floorSale          |         | When the floorSale changes for 1day, 7day, 30day, or allTime.       |
+| floorSaleChange    |         | When the floorSaleChange changes for 1day, 7day, 30day, or allTime. |
+| ownerCount         | integer | When the owner count increases or decreases.                        |
+| floorAsk           |         | When the floor ask changes.                                         |
+| floorAskNormalized |         | When the floor ask (including royalties) changes.                   |
+| floorAskNonFlagged |         | When the floor ask for a non-flagged token changes.                 |
+| onSaleCount        |         | When the tokens count on sale changes.                              |
+
+## Example `collection.created` Payload
+
+<CodeGroup>
+  ```json json
+  {
+  	"event": "collection.created",
+  	"tags": {
+  		"id": "0xb614c578062a62714c927cd8193f0b8bfb90055c:410000000:410999999"
+  	},
+  	"data": {
+  		"id": "0xb614c578062a62714c927cd8193f0b8bfb90055c:410000000:410999999",
+  		"slug": "art-blocks-v3-core-staging-goerli",
+  		"name": "Jenim by Orr Kislev & Alona Rodeh",
+  		"metadata": {
+  			"imageUrl": "https://media.artblocks.io/410000000.png",
+  			"description": "Initially worn by miners and cowboys, roughly half of the world’s population wears denim on a given day, and the range of styles is–literally–endless. A new pair of jeans might be acid bleached, sandblasted, stonewashed, or tie-dyed; it can have hand-sanded rips and tears, followed by visible mendings, patches, intentional paint stains, and more. In an epic attempt to crack the genetic code of denim, Jenim playfully but carefully observes and translates the warp and weft of denim into generative code, weaving unique iterations of irregular, distorted, or hyper-realistic textile crops.\n\nIronically, imitating aging, a pair of jeans produced today generates more pollution and labor than most average garments. In response, Jenim’s minted iterations go beyond wearables and into infinity. Each year that passes, the color might fade slightly; the rips might expand. Who knows what these artworks will look like ten or even fifty years from now?",
+  			"externalUrl": null,
+  			"safelistRequestStatus": "not_requested"
+  		},
+  		"tokenCount": "59",
+      "onSaleCount": "0",
+  		"primaryContract": "0xb614c578062a62714c927cd8193f0b8bfb90055c",
+  		"tokenSetId": "range:0xb614c578062a62714c927cd8193f0b8bfb90055c:410000000:410999999",
+  		"royalties": {
+  			"bps": 500,
+  			"recipient": "0x73b2e8e8faf8613cde07712c3f1cadbcda9900b2"
+  		},
+  		"topBid": {
+  			"id": null,
+  			"value": null,
+  			"maker": null,
+  			"validFrom": null,
+  			"validUntil": null
+  		},
+  		"rank": {
+  			"1day": null,
+  			"7day": null,
+  			"30day": null,
+  			"allTime": null
+  		},
+  		"volume": {
+  			"1day": 0,
+  			"7day": 0,
+  			"30day": 0,
+  			"allTime": 0
+  		},
+  		"volumeChange": {
+  			"1day": null,
+  			"7day": null,
+  			"30day": null
+  		},
+  		"floorSale": {
+  			"1day": null,
+  			"7day": null,
+  			"30day": null
+  		},
+  		"floorSaleChange": {
+  			"1day": null,
+  			"7day": null,
+  			"30day": null
+  		},
+  		"ownerCount": 1,
+  		"floorAsk": {
+  			"id": null,
+  			"price": null,
+  			"maker": null,
+  			"validFrom": 2147483647,
+  			"validUntil": null
+  		},
+  		"floorAskNormalized": {
+  			"id": null,
+  			"price": null,
+  			"maker": null,
+  			"validFrom": 2147483647,
+  			"validUntil": null
+  		},
+  		"floorAskNonFlagged": {
+  			"id": null,
+  			"price": null,
+  			"maker": null,
+  			"validFrom": 2147483647,
+  			"validUntil": null
+  		}
+  	},
+  	"published_at": 1688430574778,
+  	"type": "event",
+  	"status": "success"
+  }
+  ```
+</CodeGroup>
+
+## Example `collection.updated` Payload
+
+<CodeGroup>
+  ```json json
+  {
+      "event": "collection.updated",
+      "tags": {
+          "id": "0x5a96cf3ace257dfcc1fd3c037e548585124dc0c5"
+      },
+      "changed": [
+          "floorAsk.id",
+          "floorAsk.price"
+      ],
+      "data": {
+          "id": "0x5a96cf3ace257dfcc1fd3c037e548585124dc0c5",
+          "slug": null,
+          "name": "Weee Did It Palz",
+          "isSpam": false,
+          "metadata": {},
+          "metadataDisabled": false,
+          "tokenCount": "375",
+          "primaryContract": "0x5a96cf3ace257dfcc1fd3c037e548585124dc0c5",
+          "tokenSetId": "contract:0x5a96cf3ace257dfcc1fd3c037e548585124dc0c5",
+          "contractKind": "erc721",
+          "openseaVerificationStatus": null,
+          "magicedenVerificationStatus": null,
+          "topBid": {
+              "id": null,
+              "value": null,
+              "price": null,
+              "maker": null,
+              "validFrom": null,
+              "validUntil": null,
+              "source": null
+          },
+          "rank": {
+              "1day": 3,
+              "7day": null,
+              "30day": 5,
+              "allTime": 45
+          },
+          "volume": {
+              "1day": 0.50268,
+              "7day": 0.50268,
+              "30day": 4.674,
+              "allTime": 6.14968
+          },
+          "volumeChange": {
+              "1day": 7.28527536231884,
+              "7day": 0.055836139169472505,
+              "30day": 4.803699897225077
+          },
+          "floorSale": {
+              "1day": 0.0001,
+              "7day": 0.0001,
+              "30day": 0.02
+          },
+          "floorSaleChange": {
+              "1day": 30000,
+              "7day": 30000,
+              "30day": 150
+          },
+          "ownerCount": 60,
+          "floorAsk": {
+              "id": "0xc514b4d75774c7de0d02c1717df6bb13329c8756f529b00c6db0c816cf3ebe53",
+              "price": 3,
+              "priceV2": {
+                  "currency": {
+                      "contract": "0x0000000000000000000000000000000000000000",
+                      "name": "Ether",
+                      "symbol": "ETH",
+                      "decimals": 18
+                  },
+                  "amount": {
+                      "raw": "3000000000000000000",
+                      "decimal": 3,
+                      "usd": 12023.73638,
+                      "native": 3
+                  }
+              },
+              "maker": "0x03508bb71268bba25ecacc8f620e01866650532c",
+              "validFrom": 1710451792,
+              "validUntil": 1713130252,
+              "source": {
+                  "id": "0x134ccd76a6d47a152ed5259988ad263fa26ffede",
+                  "domain": "explorer-vpn.reservoir.tools",
+                  "name": "Reservoir NFT Explorer",
+                  "icon": "https://explorer-vpn.reservoir.tools/reservoir-source-icon.png"
+              }
+          },
+          "floorAskNormalized": {
+              "id": "0xc514b4d75774c7de0d02c1717df6bb13329c8756f529b00c6db0c816cf3ebe53",
+              "price": 3,
+              "priceV2": {
+                  "currency": {
+                      "contract": "0x0000000000000000000000000000000000000000",
+                      "name": "Ether",
+                      "symbol": "ETH",
+                      "decimals": 18
+                  },
+                  "amount": {
+                      "raw": "3000000000000000000",
+                      "decimal": 3,
+                      "usd": 12023.73638,
+                      "native": 3
+                  }
+              },
+              "maker": "0x03508bb71268bba25ecacc8f620e01866650532c",
+              "validFrom": 1710451792,
+              "validUntil": 1713130252,
+              "source": {
+                  "id": "0x134ccd76a6d47a152ed5259988ad263fa26ffede",
+                  "domain": "explorer-vpn.reservoir.tools",
+                  "name": "Reservoir NFT Explorer",
+                  "icon": "https://explorer-vpn.reservoir.tools/reservoir-source-icon.png"
+              }
+          },
+          "floorAskNonFlagged": {
+              "id": "0xc514b4d75774c7de0d02c1717df6bb13329c8756f529b00c6db0c816cf3ebe53",
+              "price": 3,
+              "priceV2": {
+                  "currency": {
+                      "contract": "0x0000000000000000000000000000000000000000",
+                      "name": "Ether",
+                      "symbol": "ETH",
+                      "decimals": 18
+                  },
+                  "amount": {
+                      "raw": "3000000000000000000",
+                      "decimal": 3,
+                      "usd": 12023.73638,
+                      "native": 8.914221623214021e+58
+                  }
+              },
+              "maker": "0x03508bb71268bba25ecacc8f620e01866650532c",
+              "validFrom": 1710451792,
+              "validUntil": 1713130252,
+              "source": {
+                  "id": "0x134ccd76a6d47a152ed5259988ad263fa26ffede",
+                  "domain": "explorer-vpn.reservoir.tools",
+                  "name": "Reservoir NFT Explorer",
+                  "icon": "https://explorer-vpn.reservoir.tools/reservoir-source-icon.png"
+              }
+          },
+          "createdAt": "2023-10-02T06:04:36.706Z",
+          "updatedAt": "2024-03-14T21:30:56.408Z",
+          "onSaleCount": "4"
+      },
+      "published_at": 1710451856827,
+      "event_id": "64b8d4ba-24a2-45ed-9e53-d5bbeff83053",
+      "type": "event",
+      "status": "success"
+  }
+  ```
+</CodeGroup>
+
+## Backfilling
+
+If you need to backfill historical data, or catch up events missed due to disconnection, you can leverage the [Collections API](/reference/getcollectionsv6). You can set `sortBy=createdAt` to find the latest collections.

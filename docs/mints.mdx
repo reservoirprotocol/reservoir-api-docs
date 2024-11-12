@@ -1,0 +1,172 @@
+---
+title: "Support Minting Your Collection"
+
+---
+
+Reservoir supports collection mints by decomposing, reproducing, and simulating the mint transactions. There are some limitations since the minting logic of collections can depend on many factors; a factor is not all collections are available or retrievable by parsing mint transactions on the collections. To create a simpler and better way for projects to be supported by us, Reservoir proposes a new interface that projects can use to become accurately indexed without needing additional support.
+
+## Automatic Mint Detection
+
+Reservoir works closely with minting platforms to support their contracts upon deployment automatically. We currently support minting from auto-detected mint contracts as well as direct integration with mints from [Zora](https://zora.co/), [ThirdWeb](https://thirdweb.com/solutions/minting), [Seadrop (OpenSea)](https://github.com/ProjectOpenSea/seadrop#seadrop) & [Manifold ](https://manifold.xyz/). To see the entire, updated list please check out our platform support table in our docs [here](/docs/minting#platform-support).
+
+## Custom Mint Detection & Specification
+
+We use a new field `mintConfig` on the object pointed to by the commonly-used `contractURI`. This field should contain the configuration information for various common mint-related parameters (eg. start and end time, price, contract and data to pass to the mint method). The support of this method is to be signaled in the contract by emitting the event `MintConfigChanged()` when creating the contract and also any time the configuration changes. The `mintConfig` object is expected to contain data pertaining to each phases of the mint, but can also contain global values. The following example is the expected types of the `mintConfig` objects. Please, see [src/type.d.ts ](https://github.com/reservoirprotocol/indexer/blob/main/packages/mint-interface/src/types.d.ts)for the possible types.
+
+<Info>
+  After making changes to your `contractURI` please refresh your contract with this [Collection Refresh API](/reference/postcollectionsrefreshv2) . This will update our databases with your published changes.
+</Info>
+
+### Example of `contractURI` with `mintConfig`
+
+<CodeGroup>
+  ```json contractURI
+  {
+    "name": "NFT Collection Name",
+    "description": "NFT Collection Description",
+    "image": "ipfs://Qm...",
+    "mintConfig": {
+      // The total maximum supply of the collection
+      "maxSupply": 10000,
+      "phases": [
+        {
+          // Maximum allowed mints per minting wallet
+          "maxMintsPerWallet": 1,
+          // Start time
+          "startTime": 1702460000,
+          // End time
+          "endTime": 1702463600,
+          // Unit price
+          "price": "50000000000000000",
+          // Details of the minting method
+          "tx": {
+            // Contract to call for minting (must be the same as the NFT contract itself)
+            "to": "0x0000000000000000000000000000000000000002",
+            // Mint method 4byte signature
+            "method": "0x0000aabb",
+            // Parameters of the mint method
+            "params": [
+              // Force an arbitrary value
+              {
+                "name": "arbitraryValue",
+                "abiType": "uint256",
+                "value": 42
+              },
+              // Allow random string values
+              {
+                "name": "comment",
+                "abiType": "string"
+              },
+              // Restrict the values
+              {
+                "name": "theme",
+                "abiType": "uint256",
+                "values": [
+                  { "label": "red", "value": 1 },
+                  { "label": "green", "value": 2 },
+                  { "label": "blue", "value": 3 },
+                  { "label": "gold", "value": 4 }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "maxMintsPerWallet": 1,
+          "startTime": 1702460000,
+          "endTime": 1702463600,
+          "price": "75000000000000000",
+          "tx": {
+            "to": "0x0000000000000000000000000000000000000002",
+            "method": "0x0000aabb",
+            "params": [
+              // Recipient of the mint
+              {
+                "name": "recipient",
+                "abiType": "address",
+                "kind": "RECIPIENT"
+              },
+              // Mint quantity
+              {
+                "name": "quantity",
+                "abiType": "uint256",
+                "kind": "QUANTITY"
+              },
+              // Merkle proof
+              {
+                "name": "proof",
+                "abiType": "bytes",
+                "kind": "MAPPING_RECIPIENT",
+                "values": {
+                  "0x0000000000000000000000000000000deadbeef1": "0x14e7c5ea3a66fcc78a4923ef9db55fab89302a507802a3995f4e5dbc69f76920",
+                  "0x0000000000000000000000000000000deadbeef2": "0xda093f3e739004ec4c1c46ede38a7d1e06d2c6a8c77a9f6783961efca7e82f24",
+                  "0x0000000000000000000000000000000deadbeef3": "0xb4b2301c3ea107c4363e7b847ae1a959cacb4219680d4214797729d6691e2bf4",
+                  "0x0000000000000000000000000000000deadbeef4": "0x94deb2a5f7a76bc1553595d5bd8c9fe9173c5c383a1db1a7035945bbefdf297a"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+  ```
+</CodeGroup>
+
+### Possible `contractURI` Fields
+
+| Fields      | Description                                                    | Required |
+| ----------- | -------------------------------------------------------------- | -------- |
+| name        | The name of the NFT collection.                                | **Y**    |
+| description | A description of the NFT collection.                           | N        |
+| image       | URL to image (IPFS, SVG, PNG, etc.)                            | N        |
+| mintConfig  | Configuration settings for minting NFTs within the collection. | N        |
+
+### Possible `mintConfig` Fields
+
+| Fields    | Description                                                      | Required |
+| --------- | ---------------------------------------------------------------- | -------- |
+| maxSupply | The total maximum supply of the NFT collection.                  | N        |
+| phases    | An array containing configurations for different minting phases. | N        |
+
+### Possible `mintConfig.phases` Fields
+
+| Fields            | Description                                                        | Required |
+| ----------------- | ------------------------------------------------------------------ | -------- |
+| maxMintsPerWallet | The maximum allowed mints per minting wallet for a specific phase. | N        |
+| startTime         | The start time of a specific minting phase.                        | N        |
+| endTime           | The end time of a specific minting phase.                          | N        |
+| price             | The unit price for minting an NFT during a specific phase.         | **Y**    |
+| tx                | Details of the minting method.                                     | **Y**    |
+
+### Possible `mintConfig,phases,tx` Fields
+
+| Fields | Description                                                                   | Required |
+| ------ | ----------------------------------------------------------------------------- | -------- |
+| to     | The contract address to call for minting during a specific phase.             | N        |
+| method | The mint method 4-byte signature to call for minting during a specific phase. | N        |
+| params | Parameters of the mint method for a specific phase.                           | N        |
+
+### Possible `mintConfig,phases,tx.params` Fields
+
+| Fields  | Description                                                | Required |
+| ------- | ---------------------------------------------------------- | -------- |
+| name    | Name of param (e.g. theme, comment, arbitraryValue)        | N        |
+| abiType | Param value type (e.g. string, uint256, address, bytes)    | N        |
+| value   | Assign param value that matches abiType; can pass an array | N        |
+
+## Warpcast Minting with Warps
+
+By following our recommended `contractURI` with `mintConfig`, Reservoir will be able to automatically support minting your collection with Warps on the Warpcast platform. This `mintConfig` will allow us to properly index your collection to support minting with Warps out of the box. Please know there are limitation imposed by Warpcast regarding mints. As of February 22nd, 2024 the limitations are:
+
+* The collection must be deployed on Base or Zora.
+* The collection must be indexed by the Reservoir API and isMinting must be true.
+* Must be mintable in the chain’s native asset with a mint price less than \~$8.
+
+Please check or reach out to the [Warpcast team](https://warpcast.com/~/support) for current limitations.
+
+***
+
+What’s Next
+
+* [GitHub Repo for Minting Interface](https://github.com/reservoirprotocol/indexer/tree/main/packages/mint-interface)

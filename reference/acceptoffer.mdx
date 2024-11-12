@@ -1,0 +1,49 @@
+---
+title: "acceptOffer"
+description: "This action is used to accept a valid offer/bid."
+---
+
+You can supply an object of parameters listed below:
+
+| Parameter         | Description                                                                                                                                                                                                                  | Required | Example                                                                                                                                                                           |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **items**         | An array of objects representing orders to be purchased. Refer to the the[ execute sell api](/reference/postexecutesellv7) for a full list of parameters.                                                                    | `true`   | `{ token:"0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d:1" }`                                                                                                                        |
+| **wallet**        | A valid [WalletClient](https://viem.sh/docs/clients/wallet.html) from viem or a ReservoirWallet generated from an adapter. Learn more about [adapters](/reference/adapters).                                                 | `true`   | Refer to viem's documentation on [WalletClients](https://viem.sh/docs/clients/wallet.html)\_                                                                                      |
+| **onProgress**    | Callback to update UI state as execution progresses. Can also be used to get the transaction hash for a given step item.                                                                                                     | `true`   | `(steps, path) => { console.log(steps) }`                                                                                                                                         |
+| **expectedPrice** | Token price data used to protect buyer from price moves. Pass an object where the keys represent the currency and the value details the amount or/and raw amount with currency details. The raw amount will be more precise. | `false`  | `{ "0x0000000000000000000000000000000000000000": { amount: 10, raw: 10000000000000000000 currencyAddress: "0x0000000000000000000000000000000000000000", currencyDecimals: 18 } }` |
+| **precheck**      | A boolean indicating whether to just get back the steps/path and not to execute them. This is useful for checking if marketplace approval is required before iterating over the steps.                                       | `false`  | `false`                                                                                                                                                                           |
+| **options**       | Supports all of the parameters allowed in the [execute sell api](/reference/postexecutesellv7)                                                                                                                               | `false`  | `{ source: 'opensea.io' ... }`                                                                                                                                                    |
+| **chainId**       | Override the current active chain                                                                                                                                                                                            | `false`  | 1                                                                                                                                                                                 |
+| **gas**           | String of the gas provided for the transaction execution. Unused gas will be returned.                                                                                                                                       | `false`  | "1000000000000000"                                                                                                                                                                |
+
+**Example**
+
+<CodeGroup>
+  ```typescript typescript
+  import { getClient, Execute } from "@reservoir0x/reservoir-sdk";
+  import { createWalletClient, http } from 'viem'
+
+  ...
+
+  address = "0x8ba1f109551bD432803012645Ac136ddd6000000"
+  wallet = createWalletClient({
+    account: address,
+    transport: http()
+  })
+
+  getClient()?.actions.acceptOffer({
+    items: [{  
+        token:  "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d:1",
+        quantity: 1
+    }],
+    wallet,
+    onProgress: (steps: Execute['steps'], path: Execute['path']) => {
+      console.log(steps)
+    }
+  })
+  ```
+</CodeGroup>
+
+**Notes**
+
+* `expectedPrice` - A feature that protects the seller when the price changes drastically in a less desirable direction. There’s a small threshold in which it’s ok for it to go down but once it’s crossed the SDK prevents the transaction from being submitted. This check is hardcoded into the SDK and occurs before the transaction hits the blockchain. The price is **not inclusive** of fees. To get the offer price you can use the [tokens](/reference/gettokensv7) api or the [useTokens](/reference/reservoirkit-hooks#usetokens) hook.

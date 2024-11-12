@@ -1,0 +1,113 @@
+---
+title: "Reservoir SDK (Typescript)"
+description: "ReservoirSDK wraps the trading APIs into convenient methods for use in typescript"
+---
+
+### Reservoir SDK
+
+The Reservoir SDK is the underlying package that [ReservoirKit UI](/reference/reservoirkit) uses behind the scenes to execute core functionality (listing, bidding, buying and selling). The Reservoir SDK can be used if you are using another **JavaScript framework**, executing orders via a **Nodejs server** or building a custom experience.
+
+If you're using [ReservoirKit UI](/reference/reservoirkit) then you're already using the SDK, and you have access to the `useReservoirClient` hook to retrieve the SDK in a react context and use it. If you aren't using the UI package then you'll need to follow these steps to get the SDK up and running.
+
+### Installing Reservoir SDK:
+
+**Environment Requirements:**
+
+* node 18+
+* typescript ^5.0.4 (if using typescript)
+
+<CodeGroup>
+  ```shell shell
+  yarn add @reservoir0x/reservoir-sdk
+  ```
+</CodeGroup>
+
+The Reservoir SDK also requires viem to be installed, make sure that's added to your package.json if it isn't already.
+
+<CodeGroup>
+  ```shell shell
+  yarn add viem
+  ```
+</CodeGroup>
+
+### ethers support
+
+If your application uses ethers and you're not ready to upgrade to viem yet we offer an [ethers adapter](https://github.com/reservoirprotocol/reservoir-kit/tree/main/packages/ethers-wallet-adapter) package to help bridge the gap. Learn more about adapters [here](/reference/adapters).
+
+### Configuring the Reservoir SDK
+
+To configure the SDK we first need to create a global instance of it:
+
+<CodeGroup>
+  ```typescript typescript
+  import { createClient, reservoirChains } from "@reservoir0x/reservoir-sdk"
+
+  createClient({
+    chains: [{
+      ...reservoirChains.mainnet,
+      active: true,
+    }],
+    source: "YOUR.SOURCE"
+  });
+  ```
+</CodeGroup>
+
+We start by importing the `createClient` function and then call that function to create a global client, passing in the required parameters.
+
+| Option                           | Description                                                                                                                                                                                                                                                                                                                                                                |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **chains**                       | An array of chain objects representing reservoir chains that your application supports. Below we'll breakdown the properties of the chain object. You can also use bundled chains that are exported by the Reservoir SDK. Click [here](https://github.com/reservoirprotocol/reservoir-kit/blob/main/packages/sdk/src/utils/reservoirChains.ts) to view the supported ones. |
+| **apiKey**                       | The apiKey is not required but should be passed in as it allows for higher rate limits. Read more about the [API Keys & Rate Limits](/reference/getting-started) and how to instantly generate one.                                                                                                                                                                        |
+| **source**                       | The `source` parameter can be any valid domain (e.g. `reservoir.market`). It's used to attribute orders to your particular marketplace and to scrape [custom metadata](how-to-configure-custom-source-metadata) from your marketplace.                                                                                                                                     |
+| **marketplaceFees**              | A list of fee strings representing a recipient and the fee in bps delimited by a colon: \["0xabc:100"] used when creating an order (listing or bid)                                                                                                                                                                                                                        |
+| **automatedRoyalties**           | If true, royalties will be automatically included, defaults to true. Only relevant for creating orders (listing and bidding)                                                                                                                                                                                                                                               |
+| **normalizeRoyalties**           | Global setting to add royalties on top of orders that do not include royalties.                                                                                                                                                                                                                                                                                            |
+| **bountyReferrer**               | Global setting to add referrer when purchasing a listing. Referrers gain a [referral rewards](/docs/referral-rewards).                                                                                                                                                                                                                                                     |
+| **synchronousStepItemExecution** | Enable this to force the sdk to execute step items in a blocking and synchronous way. Accepts `true` or `false` values                                                                                                                                                                                                                                                     |
+
+### Chain Configuration
+
+| Property                 | Description                                                                                                                                                                 | Example                                                                                                                                                                                                                                                                                                                       | Required |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| **id**                   | The id of the chain (e.g. 1 for mainnet)                                                                                                                                    | `1`                                                                                                                                                                                                                                                                                                                           | Y        |
+| **name**                 | The name of the chain                                                                                                                                                       | `"Ethereum"`                                                                                                                                                                                                                                                                                                                  | Y        |
+| **baseApiUrl**           | Can be one of our [hosted api](/reference/supported-chains) endpoints or any instance of the Reservoir indexer.                                                             | `"https://api.reservoir.tools"`                                                                                                                                                                                                                                                                                               | Y        |
+| **active**               | Only one chain can be the default at a time. This is used in the SDK when determining which default chain to select.                                                        | `true`                                                                                                                                                                                                                                                                                                                        | Y        |
+| **marketplaceFees**      | **Chain specific** list of fee strings representing a recipient and the fee in bps delimited by a colon: \["0xabc:100"] used when creating an order (listing or bid). Fees. | `["0xabc:100"]`                                                                                                                                                                                                                                                                                                               | N        |
+| **paymentTokens**        | A configuration of currency tokens that may be used when executing a listing (buying).                                                                                      | `[ { chainId: 1, address: zeroAddress, symbol: 'ETH', name: 'ETH', decimals: 18, }, { chainId: 1, address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', symbol: 'USDC', name: 'USDC', decimals: 6, }, { chainId: 1, address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', symbol: 'WETH', name: 'WETH', decimals: 18, }, ]` | N        |
+| **checkPollingInterval** | Time in milliseconds to poll checks after a transaction/signature.                                                                                                          | `1000`                                                                                                                                                                                                                                                                                                                        |          |
+
+Once the client has been created there are 5 core actions available to you:
+
+[buyToken](/docs/buytoken) [listToken](/docs/listtoken) [placeBid](/docs/placebid) [acceptOffer](/docs/acceptoffer) [cancelOrder](/docs/cancelorder)
+
+#### Notes
+
+* The SDK can only have a single chain at a time. You can put a new instance of the `createClient` before a core action if you need to switch chains.
+* In the example actions provided throughout this documentation, the wallet client being used is for an injected browser wallet.
+
+### Events
+
+The Reservoir SDK also comes with an event system to detect results from the actions above. This can be useful to display a toast message to your users, refresh some data within your application, or track the data. You can find the [supported events](https://github.com/reservoirprotocol/reservoir-kit/blob/main/packages/sdk/src/utils/events.ts#L4) here. Here's an example of how you would listen to events:
+
+```
+import { getClient } from "@reservoir0x/reservoir-sdk";
+
+getClient()?.addEventListener((event, chainId) => {
+  switch (event.name) {
+    case 'purchase_error': {
+      //Handle the error
+      console.log(event.data);
+      break;
+    }
+    case 'purchase_complete': {
+      //Handle the success
+      console.log(event.data);
+      break;
+    }
+})
+```
+
+<Check>
+  Now that the Reservoir SDK is up and running lets [add sweeping](/docs/sweeping) to our javascript application.
+</Check>

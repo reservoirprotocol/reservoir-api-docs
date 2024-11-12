@@ -1,0 +1,55 @@
+---
+title: "Linea NFT API"
+description: "Learn how to access Linea NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with Linea on Reservoir
+
+Reservoir offers access to Linea & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **Linea API Base URL** - You can access all Reservoir APIs by using the `https://api-linea.reservoir.tools` base URL. When using the API reference docs for Linea, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended Linea NFT collection to test with is [Linea Voyage](https://lineascan.build/address/0x0872ec4426103482a50f26ffc32acefcec61b3c9) contract address: `0xd6f1ed5cce372eff973215ebf7227386da42f023`. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [Linea Marketplace & Explorer](https://explorer.reservoir.tools/linea).
+
+## Access Linea Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across all major marketplaces, including Opensea. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated Listings](/reference/getordersasksv5) - [sample response](https://api-linea.reservoir.tools/orders/asks/v5)
+* [Get Aggregated Offers](/reference/getordersbidsv6) - [sample response](https://api-linea.reservoir.tools/orders/bids/v6)
+* [Get Floor Prices](/reference/getcollectionsv7) - [sample response](https://api-linea.reservoir.tools/collections/v7?id=0xd6f1ed5cce372eff973215ebf7227386da42f023)
+* [Get Sales Volume](/reference/getcollectionsdailyvolumesv1) - [sample response](https://api-linea.reservoir.tools/collections/daily-volumes/v1?id=0xd6f1ed5cce372eff973215ebf7227386da42f023)
+* [Get Collection Metadata](/reference/gettokensv6) - [sample response](https://api-linea.reservoir.tools/tokens/v6?collection=0xd6f1ed5cce372eff973215ebf7227386da42f023)
+
+## Trading on Linea with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On Linea, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy NFTs](/reference/postexecutebuyv7)
+* [Sell NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have Linea support. Check out our list and bid endpoints below:
+
+* [List NFTs](/reference/postexecutelistv5)
+* [Bid on NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on Linea
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full Linea support.
+
+# Understanding Linea
+
+Linea, formerly known as ConsenSys zkEVM, is an innovative Layer 2 (L2) solution that opens its testnet to developers, users, and protocols, inviting the web3 community to help Ethereum scale. With Linea, developers can build new decentralized applications (dapps) with ease, ensuring easy accessibility through MetaMask.
+
+## Key Features:
+
+* **Ethereum l2:** Linea empowers a new generation of Ethereum builders, providing the freedom to innovate without cost or scalability constraints. It connects Ethereum's past and present to its future, delivering unparalleled possibilities in the web3 space.
+
+* **Native Integrations:** Linea follows a developer-centric approach, offering native integrations with popular tools like MetaMask and Truffle. Builders can focus solely on innovation without worrying about code changes or rewriting smart contracts.
+
+* **EVM Equivalence:** Linea combines the power of zero-knowledge proofs with full Ethereum Virtual Machine (EVM) equivalence. Developers can create scalable dapps or migrate existing ones with ease, while the innovative prover design ensures faster transaction speeds and reduced gas costs without compromising security.
+
+* **Approachable and Composable:** Linea is designed to be approachable and highly composable, ensuring flexibility and scalability for developers. With Linea's zkEVM, even those without expertise in zero-knowledge technology can build scalable dapps confidently.

@@ -1,0 +1,46 @@
+---
+title: "buyToken"
+description: "This action is used to buy an ERC-1155 or ERC-721 token. You can also use it to buy multiple tokens of the same kind (sweeping)."
+---
+
+You can supply an object of parameters listed below:
+
+| Parameter         | Description                                                                                                                                                                                                                  | Required | Example                                                                                                                                                                           |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **items**         | An array of objects representing orders to be purchased. Refer to the the [execute buy api](/reference/postexecutebuyv7) for a full list of parameters                                                                       | `true`   | `[{ token: "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d:1" }]`                                                                                                                     |
+| **wallet**        | A valid [WalletClient](https://viem.sh/docs/clients/wallet.html) from viem or a ReservoirWallet generated from an adapter. Learn more about [adapters](/reference/adapters).                                                 | `true`   | *Refer to viem's documentation on [Wallet Clients](https://viem.sh/docs/clients/wallet.html)*                                                                                     |
+| **onProgress**    | Callback to update UI state as execution progresses. Can also be used to get the transaction hash for a given step item.                                                                                                     | `true`   | `(steps) => { console.log(steps) }`                                                                                                                                               |
+| **expectedPrice** | Token price data used to protect buyer from price moves. Pass an object where the keys represent the currency and the value details the amount or/and raw amount with currency details. The raw amount will be more precise. | `false`  | `{ "0x0000000000000000000000000000000000000000": { amount: 10, raw: 10000000000000000000 currencyAddress: "0x0000000000000000000000000000000000000000", currencyDecimals: 18 } }` |
+| **options**       | Supports all of the parameters allowed in the [execute buy api](/reference/postexecutebuyv7)                                                                                                                                 | `false`  | \{ source: "reservoir.market", skipBalanceCheck: true ... }                                                                                                                       |
+| **chainId**       | Override the current active chain                                                                                                                                                                                            | `false`  | 1                                                                                                                                                                                 |
+| **precheck**      | A boolean indicating whether to just get back the steps/path and not to execute them. This is useful for checking if marketplace approval is required before iterating over the steps.                                       | `false`  | `false`                                                                                                                                                                           |
+| **gas**           | String of the gas provided for the transaction execution. Unused gas will be returned.                                                                                                                                       | `false`  | "1000000000000000"                                                                                                                                                                |
+
+**Example**
+
+<CodeGroup>
+  ```typescript typescript
+  import { getClient, Execute } from "@reservoir0x/reservoir-sdk";
+  import { createWalletClient, http } from 'viem'
+
+  ...
+
+  address = "0x8ba1f109551bD432803012645Ac136ddd6000000"
+  wallet = createWalletClient({
+    account: address,
+    transport: http()
+  })
+
+  getClient()?.actions.buyToken({
+    items: [{ token: "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d:1", quantity: 1 }],
+    wallet,
+    onProgress: (steps: Execute['steps']) => {
+      console.log(steps)
+    }
+  })
+  ```
+</CodeGroup>
+
+**Notes**
+
+* `expectedPrice` - A feature that protects the buyer when the price changes drastically in a less desirable direction. There’s a small threshold in which it’s ok for it to go up but once it’s crossed the SDK prevents the transaction from being submitted. This check is hardcoded into the SDK and occurs before the transaction hits the blockchain. The price is **not inclusive** of fees. To get the price you can use the [tokens](/reference/gettokensv7) api or the [useTokens](/reference/reservoirkit-hooks#usetokens) hook.

@@ -1,0 +1,45 @@
+---
+title: "Polygon zkEVM NFT API"
+description: "Learn how to access Polygon zkEVM NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with Polygon zkEVM on Reservoir
+
+Reservoir offers access to Polygon zkEVM & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **Polygon zkEVM API Base URL** - You can access all Reservoir APIs by using the `https://api-polygon-zkevm.reservoir.tools` base URL. When using the API reference docs for Polygon zkEVM, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended Polygon zkEVM NFT collection to test with is [Polygon zkEVM Mint](https://explorer.reservoir.tools/polygon-zkevm/collection/0x6ceb0ef825989a78ee3f562e4ff9e7f43a0033bd) contract address: `0x6ceb0ef825989a78ee3f562e4ff9e7f43a0033bd`. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [Polygon zkEVM Marketplace & Explorer](https://explorer.reservoir.tools/polygon-zkevm).
+
+## Access Polygon zkEVM Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across all major marketplaces, including Opensea. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated Listings](/reference/getordersasksv4) - [sample response](https://api-polygon-zkevm.reservoir.tools/orders/asks/v4?contracts=0x6ceb0ef825989a78ee3f562e4ff9e7f43a0033bd)
+* [Get Aggregated Offers](/reference/getordersbidsv5) - [sample response](https://api-polygon-zkevm.reservoir.tools/orders/bids/v5?contracts=0x6ceb0ef825989a78ee3f562e4ff9e7f43a0033bd)
+* [Get Floor Prices](/reference/getcollectionsv5) - [sample response](https://api-polygon-zkevm.reservoir.tools/collections/v5?id=0x6ceb0ef825989a78ee3f562e4ff9e7f43a0033bd)
+* [Get Sales Volume](/reference/getcollectionsdailyvolumesv1) - [sample response](https://api-polygon-zkevm.reservoir.tools/collections/daily-volumes/v1?id=0x6ceb0ef825989a78ee3f562e4ff9e7f43a0033bd)
+* [Get Collection Metadata](/reference/gettokensv6) - [sample response](https://api-polygon-zkevm.reservoir.tools/tokens/v6?collection=0x6ceb0ef825989a78ee3f562e4ff9e7f43a0033bd)
+
+## Trading on Polygon zkEVM with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On Polygon zkEVM, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy NFTs](/reference/postexecutebuyv7)
+* [Sell NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have Polygon zkEVM support. Check out our list and bid endpoints below:
+
+* [List NFTs](/reference/postexecutelistv5)
+* [Bid on NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on Polygon zkEVM
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full Polygon zkEVM support.
+
+# Understanding Polygon zkEVM
+
+Polygon zkEVM leverages ZK proofs to provide enhanced scalability and security for Ethereum, offering reduced transaction costs and a superior user experience. The platform boasts fast network finality and extreme scalability through Polygon Zero technology and Recursive STARK. Moreover, it facilitates seamless deployment onto the Ethereum Virtual Machine (EVM) without code alterations, ensuring compatibility with most existing tools, and offers robust security features inherited from Ethereum, further enhanced by L2 batching.

@@ -1,0 +1,15 @@
+---
+title: "Protect Your API Key"
+description: "Best practices for protecting your API key and how to secure it from unauthorized access"
+---
+
+Protecting your API key is an important step to help ensure the security of your account. Here are some best practices to secure your API key from unauthorized access:
+
+1. Utilize a proxy server when building a consumer-facing application. All API calls should be routed through the proxy, where the endpoint and query parameters can be parsed to generate the desired API call. You could employ a catch all API route using Next.js. as proxy server; you can check out this [guide by Vercel](https://vercel.com/guides/vercel-reverse-proxy-rewrites-external) or [guide by Netlify](https://www.netlify.com/blog/a-guide-to-storing-api-keys-securely-with-environment-variables/).
+2. Implement the correct CORS rules to ensure other applications can't use your proxy to piggy-back your API key.
+3. Consider using IP filtering/whitelisting to block requests that don't implement CORS (such as curl, postman, etc.).
+4. Configure additional API key security options on the Apps page of your [Reservoir dashboard](https://dashboard.reservoir.tools/).
+
+![](/images/docs/aba97a3-Screen_Shot_2023-06-16_at_4.57.55_PM.png)
+
+By following these best practices, you can help protect your API key from malicious activities and any additional costs associated with unauthorized access.

@@ -1,0 +1,27 @@
+---
+title: "Referral Rewards"
+description: "Earn on chain through referral fees by building on Reservoir"
+---
+
+Many Protocols include referral rewards or bounties as part of their orders to share some of fees with fillers and other applications building on top. ​ An example of this is Zora’s protocol rewards which gives referrers a portion of their 0.000777 ETH mint fee. ​ [https://twitter.com/ourZORA/status/1687146881791791104?s=20](https://twitter.com/ourZORA/status/1687146881791791104?s=20) ​ There are a few different places in the Reservoir Platform where you can add a referrer. It’s as easy as passing an address and we’ll figure out how to get you rewards depending on the protocol you’re interacting with! ​ The most basic place to add a referrer is via our SDK ​
+
+### SDK
+
+An example of passing in referrer to the buy token action for a mint ​
+
+<CodeGroup>
+  ```jsx jsx
+  getClient()?.actions.buyToken({
+    items: [{ 
+  	  collection: "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", 
+      fillType: "preferMint",
+      quantity: 1 
+      referrer: "YOUR_REWARD_RECEIVING_ADDRESS"
+    }],
+    wallet,
+    onProgress: (steps: Execute['steps']) => {
+      console.log(steps)
+    }
+  })
+  ```
+</CodeGroup>

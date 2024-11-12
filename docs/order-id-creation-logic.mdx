@@ -1,0 +1,26 @@
+---
+title: "Order ID Creation Logic"
+description: "See the table below to see the logic behind  creation."
+---
+
+| Protocol      | `id` Logic                                                                                                                                                                                          | `orderKind`     |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| Alienswap     | Order Hash                                                                                                                                                                                          | `alienswap`     |
+| Blur          | Order hash for listings/[Custom](https://github.com/reservoirprotocol/indexer/blob/1e2fb408b6dd1198e68b5957e723eb4ddb2d6295/packages/indexer/src/orderbook/orders/blur/index.ts#L305-L307) for bids | `blur`          |
+| Cryptopunks   | [Custom](https://github.com/reservoirprotocol/indexer/blob/1e2fb408b6dd1198e68b5957e723eb4ddb2d6295/packages/indexer/src/orderbook/orders/cryptopunks/index.ts#L43-L44)                             | `cryptopunks`   |
+| Element       | Order Hash                                                                                                                                                                                          | `element`       |
+| Flow          | Order Hash                                                                                                                                                                                          | `flow`          |
+| Foundation    | [Custom](https://github.com/reservoirprotocol/indexer/blob/1e2fb408b6dd1198e68b5957e723eb4ddb2d6295/packages/indexer/src/orderbook/orders/foundation/index.ts#L42-L44)                              | `foundation`    |
+| Looks Rare V2 | Order Hash                                                                                                                                                                                          | `looks-rare-v2` |
+| Manifold      | [Custom](https://github.com/reservoirprotocol/indexer/blob/1e2fb408b6dd1198e68b5957e723eb4ddb2d6295/packages/indexer/src/orderbook/orders/manifold/index.ts#L38-L46)                                | `manifold`      |
+| NFTX          | [Custom](https://github.com/reservoirprotocol/indexer/blob/1e2fb408b6dd1198e68b5957e723eb4ddb2d6295/packages/indexer/src/orderbook/orders/nftx/index.ts#L43-L48)                                    | `nftx`          |
+| Rarible       | Order Hash                                                                                                                                                                                          | `rarible`       |
+| Seaport 1.1   | Order Hash                                                                                                                                                                                          | `seaport`       |
+| Seaport 1.4   | Order Hash                                                                                                                                                                                          | `seaport-v1.4`  |
+| Seaport 1.5   | Order Hash                                                                                                                                                                                          | `seaport-v1.5`  |
+| Sudoswap      | [Custom](https://github.com/reservoirprotocol/indexer/blob/1e2fb408b6dd1198e68b5957e723eb4ddb2d6295/packages/indexer/src/orderbook/orders/sudoswap/index.ts#L43-L48)                                | `sudoswap`      |
+| SuperRare     | [Custom](https://github.com/reservoirprotocol/indexer/blob/1e2fb408b6dd1198e68b5957e723eb4ddb2d6295/packages/indexer/src/orderbook/orders/superrare/index.ts#L45-L46)                               | `superrare`     |
+| Universe      | Order Hash                                                                                                                                                                                          | `universe`      |
+| X2Y2          | Order Hash                                                                                                                                                                                          | `x2y2`          |
+| Zeroex V4     | Order Hash                                                                                                                                                                                          | `zeroex-v4`     |
+| Zora          | [Custom](https://github.com/reservoirprotocol/indexer/blob/1e2fb408b6dd1198e68b5957e723eb4ddb2d6295/packages/indexer/src/orderbook/orders/zora/index.ts#L43-L49)                                    | `zora`          |

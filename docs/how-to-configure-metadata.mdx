@@ -1,0 +1,214 @@
+---
+title: "Configure Metadata for Collections and Tokens"
+---
+
+Collection and token metadata play a crucial role in contextualizing and enhancing digital assets by providing additional properties, such as a name, description, and image. Configuring collection and token metadata at the contract level allows Reservoir to more efficiently and accurately index and return this data in our APIs and other services.
+
+# Contract URI
+
+For contract or collection level metadata, you can add a `contractURI` method to your ERC721 or ERC1155 contract. Below is a sample.
+
+<CodeGroup>
+  ```sol sol
+  contract myFirstContract is ERC721 {
+      function contractURI() public view returns (string memory) {
+          return "ipfs://UyNGgv3jx2HHfBjQX9RnKtxj2xv2xQDtbVXoRi5rJ31234";
+          // or e.g. https://myDomain.com/myFirstContractMetadata.json
+      }
+  }
+  ```
+</CodeGroup>
+
+Your IPFS or URL should return a JSON blob that is formatted like the example before. These are all possible properties but only `name` is required. The items in the brackets are fields that we accept. For example, the `name` field must be `name`; another example is the `externalUrl` field can be `website`, `website_url`, or`external_url`.
+
+<CodeGroup>
+  ```json json
+  {
+    "name": ["name"], //required
+    "description": ["description"],
+    "imageUrl": ["image", "image_url"],
+    "bannerImageUrl": ["cover_image", "banner_image_url"],
+    "externalUrl": ["website", "website_url", "external_url"],
+    "twitterUrl": ["twitter"],
+    "twitterUsername": ["twitter_username"],
+    "discordUrl": ["discord", "discord_url"],
+    "instagramUrl": ["instagram"],
+    "telegramUrl": ["telegram"],
+    "githubUrl": ["github"],
+    "mediumUrl": ["medium"],
+  }
+  ```
+</CodeGroup>
+
+| Property        | Description                                                                                                                                                                                    |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name            | Contract's Name *(required)*                                                                                                                                                                   |
+| description     | Readable description for end users. Markdown supported.                                                                                                                                        |
+| imageUrl        | URL to the contract's image. We support any image format (SVG, PNG, etc.) and can be IPFS URLS or paths. Recommended size is 350x350. The original full-size image can be returned in our API. |
+| bannerImageUrl  | URL to the contract's banner image for the contract page. We support any image format (SVG, PNG, etc.) and can be IPFS URLS or paths.                                                          |
+| externalUrl     | URL to view contract on an external page or the website for the contract.                                                                                                                      |
+| twitterUrl      | URL to the contract's Twitter page.                                                                                                                                                            |
+| twitterUsername | Twitter username to link out to, `@` is not necessary before the name.                                                                                                                         |
+| discordUrl      | URL to the contract's Discord server.                                                                                                                                                          |
+| instagramUrl    | URL to the contract's Instagram account.                                                                                                                                                       |
+| telegramUrl     | URL to the contract's Telegram account or announcement channel.                                                                                                                                |
+| githubUrl       | URL to the contract's GitHub page.                                                                                                                                                             |
+| mediumUrl       | URL to the contract's Medium page.                                                                                                                                                             |
+
+The metadata should be a string field like shown below in the example.
+
+<CodeGroup>
+  ```json json
+  { 
+    "name": "The NFT Sample Collection",
+    "description": "A collection of sample NFTs",
+    "imageUrl": "ipfs://QmYCduapLWPhnvw8AG7rBpn6eBbLRYeNqdt7FexjAQ567H",
+  }
+  ```
+</CodeGroup>
+
+# Token URI
+
+Your contract needs to return a URI so Reservoir can pull off-chain metadata for ERC721 and ERC1155 assets. We use the `tokenURI` method on ERC721 and the `uri` method in ERC1155 to find your URI.
+
+Here is a sample of how the `tokenURI` method should look in a contract.
+
+<CodeGroup>
+  ```sol sol
+  /**
+   * @dev Returns an URI for a given token ID
+   */
+  function tokenURI(uint256 _tokenId) public view returns (string) {
+    return Strings.strConcat(
+        baseTokenURI(),
+        Strings.uint2str(_tokenId)
+    );
+  }
+  ```
+</CodeGroup>
+
+Either the ERC721's`tokenURI` or the ERC1155's`uri` should return an HTTP or IPFS URL. The URL should return a JSON blob of data with your token's metadata. Reservoir supports the [official ERC721 metadata standard](https://github.com/ethereum/ercs/blob/master/ERCS/erc-721.md) or the [Enjin metadata suggestions](https://github.com/ethereum/ercs/blob/master/ERCS/erc-1155.md). We also support other multimedia properties to allow the options of audio, video, 3D models, and interactive traits.
+
+Here is a sample JSON response when the URL is polled.
+
+<CodeGroup>
+  ```json json
+  {
+    "name": "NFT #100001",
+    "description": "This is an NFT collection launched on Ethereum", 
+    "image": "ipfs://QmYCduapLWPhnvw8AG7rBpn6eBbLRYeNqdt7FexjAQ123H", 
+    "attributes": [ ... ]
+    "external_url": "http://www.ethereumNFTcollection.com/", 
+  }
+  ```
+</CodeGroup>
+
+Below details the possible token metadata properties. The maximum file size for media is 100MB but we recommend keeping it under 100MB for efficient load times.
+
+| Property       | Description                                                                                                                       |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| name           | Item's Name                                                                                                                       |
+| description    | Readable description for end users. Markdown supported.                                                                           |
+| image          | URL to the item's image. We support any image format (SVG, PNG, etc.) and can be IPFS URLS or paths. Recommended size is 350x350. |
+| attributes     | These are the attributes of an item. References below for fomatting.                                                              |
+| external\_url  | URL to view the item on an external site.                                                                                         |
+| animation\_url | URL to a multi-media attachment. These file extensions are supported: GLTF, GLB, WEBM, MP4, M4V, OGV, OGG, MP3, WAV, and OGA      |
+
+## Token Attributes
+
+Attributes are optional for your Token URI but allow you to distinguish your NFTs from one another in the contract. Rarity scores can be created based on attributes; read more about rarity scores [here](/docs/is-openrarity-supported).
+
+Below is a sample for how to format your attributes.
+
+<CodeGroup>
+  ```json json
+  ...
+  {
+  "attributes": [
+      {
+        "trait_type": "Background", 
+        "value": "Silver"
+      }, 
+      {
+        "trait_type": "Hat", 
+        "value": "Green"
+      }, 
+      {
+        "trait_type": "Cheeks", 
+        "value": "Rosey"
+      }, 
+      {
+        "trait_type": "Stage", 
+        "value": 3
+      }, 
+      {
+        "trait_type": "Energy", 
+        "value": 6
+      }, 
+      {
+        "trait_type": "Mood", 
+        "value": "Angry"
+      }, 
+      {
+        "display_type": "multiplier_number", 
+        "trait_type": "Defense", 
+        "value": 2
+      }, 
+      {
+        "display_type": "multiplier_percentage", 
+        "trait_type": "Attack", 
+        "value": 40
+      }, 
+      {
+        "display_type": "number", 
+        "trait_type": "Lives", 
+        "max_value": 3,
+        "value": 3
+      },
+      {
+        "display_type": "date", 
+        "trait_type": "birthday", 
+        "value": 1636922382
+      }
+    ]
+  }
+  ```
+</CodeGroup>
+
+| Type                   | Description                                                                                    |
+| ---------------------- | ---------------------------------------------------------------------------------------------- |
+| trait\_type            | Name of the trait; case sensitive                                                              |
+| value                  | Value of the trait; case sensitive                                                             |
+| display\_type          | Indicates how to display it; optional for numbers; skip for string values                      |
+| multiplier\_number     | Integer or float number value; not displayed as a percentage; `multiplier` can be renamed      |
+| multiplier\_percentage | Integer or float number value displayed with a percentage sign; `multiplier` can be renamed    |
+| numbers                | Integer or float number value; not displayed as a percentage                                   |
+| max\_value             | Set a maximum limit for a numerical trait; optional; value cannot exceed max\_value if defined |
+| date                   | Supports unix timestamp (seconds) value                                                        |
+
+# Metadata Updates
+
+ERC4906, an extension of ERC721, introduces MetadataUpdate events to simplify the update of metadata associated with ERC721 tokens. As explained in the [official ERC-4906 proposal](https://eips.ethereum.org/EIPS/eip-4906), emitting an on-chain event allows Reservoir and other providers to know when to refresh the metadata. This is strongly recommended especially in cases with dynamic NFTs.
+
+To refresh a token, you can emit an event like the sample below.
+
+<CodeGroup>
+  ```sol sol
+  event MetadataUpdate(uint256 _tokenId);
+  event BatchMetadataUpdate(uint256 _fromTokenId, uint256 _toTokenId);
+  ```
+</CodeGroup>
+
+To refresh a entire contract, emit `_toTokenId` with `type(uint256).max`.
+
+For ERC1155, metadata updated can be triggered with the [specification](https://eips.ethereum.org/EIPS/eip-1155#specification) for the event `URI`:
+
+<CodeGroup>
+  ```sol sol
+  event URI(string _value, uint256 indexed _id);
+  ```
+</CodeGroup>
+
+On-chain metadata updates are recommended whenever possible, however, Reservoir also supports refreshing [collections](/reference/postcollectionsrefreshv2) and [tokens](/reference/posttokensrefreshv1) via our APIs.
+
+*Note: These refresh APIs should be used in moderation. Calling it in bulk or programmatically will result in your API key getting rate limited.*

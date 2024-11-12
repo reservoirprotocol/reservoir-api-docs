@@ -1,0 +1,63 @@
+---
+title: "Instant Bridging"
+description: "Relay is the fastest and cheapest way to bridge & transact across chains"
+---
+
+---
+
+# What is Relay?
+
+Relay is a gas-minimized, lightning fast cross-chain payments system. The goal of Relay is cheaper, faster, and more flexible payments that let you transact on more chains. Under the hood, Relay's cross-chain tech is powered by relaying. Check out a [demo](https://www.relay.link/bridge/ethereum/).
+
+When they wants to “bridge” from Chain A to Chain B using Relay, the user makes a payment to a relayer on chain A in exchange for a payment from the relayer on chain B. For more complex execution on chain B, they must simply tell the relayer what they want delivered (or executed) on chain B. This model results in low-cost, low-latency (1-10 seconds) cross-chain transactions. Today, Relay enables both Instant Bridging and [Cross-chain Execution](/docs/cross-chain-execution) on supported chains.
+
+# How it Works
+
+Relay's instant bridging is powered by cross-chain relaying. This model results in low-cost, low-latency (1-10 seconds) cross-chain transactions. Today, users of Relay work with a trusted third-party provider for cross-chain relaying, such as Reservoir. Third parties escrow funds and take on reputational risk, in the case of cross-chain disputes.
+
+# Integrating Instant Bridging
+
+To get started make sure that you install and configure the [Reservoir SDK](/reference/reservoir-sdk-jstsnode) or [ReservoirKit](/reference/reservoirkit) (which exposes a client that you can tap into using the [useReservoirClient](/reference/reservoirkit-hooks#usereservoirclient) hook). In this example we’ll be using the Reservoir SDK. Ensure that everything is configured properly before moving on to implementing the call action.
+
+<CodeGroup>
+  ```typescript TypeScript
+  import { getClient, Execute } from "@reservoir0x/reservoir-sdk";
+  import { createWalletClient, http } from 'viem'
+
+  ...
+
+  wallet = createWalletClient({
+    account: address,
+    transport: http()
+  })
+
+  //A simple bridge requires no data, so 0x (null data) is provided
+  //In this example we're bridging from zora to base
+
+  getClient().actions.call({
+    chainId: 7777777, //This is not required as the call action will use the active configured chain
+    toChainId: 8453,
+    txs: [{
+      to: "0x03508bB71268BBA25ECaCC8F620e01866650532c",
+     	value: "1000000",
+      data: "0x"
+    }],
+    wallet: wallet,
+    onProgress: (steps) => {
+      console.log(steps)
+    },
+  })
+  ```
+</CodeGroup>
+
+# Adding Relay to Your Chain
+
+Relay can easily be added to any EVM-chain, such as OP stack rollups, Arbitrum Orbit chains, or more. Please feel free to [reach out](https://reservoir.tools/#contact-us) or [email us](/cdn-cgi/l/email-protection#2a595f5a5a45585e6a584f594f585c454358045e45454659) to discuss getting your chain supported today!
+
+***
+
+What’s Next
+
+* [Cross-chain Execution](/docs/cross-chain-execution)
+* [Demo of Relay](https://www.relay.link/bridge/ethereum/)
+

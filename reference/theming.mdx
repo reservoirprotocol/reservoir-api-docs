@@ -1,0 +1,57 @@
+---
+title: "Theming"
+description: "Themes for ReservoirKit"
+---
+
+ReservoirKit provides 2 preconfigured themes, darkMode and lightMode. They can be used as is or configured with some additional overrides:
+
+<CodeGroup>
+  ```typescript typescript
+  const theme = darkTheme({
+    headlineFont: "Sans Serif",
+    font: "Serif",
+    primaryColor: "#323aa8",
+    primaryHoverColor: "#252ea5",
+  })
+  ```
+</CodeGroup>
+
+Click [here](https://github.com/reservoirprotocol/reservoir-kit/blob/main/packages/ui/src/themes/ReservoirKitTheme.ts#L73) for a full list of overrides.
+
+If that isn't enough customization you can also create a completely custom ReservoirKitTheme.
+
+<CodeGroup>
+  ```typescript typescript
+  const theme: ReservoirKitTheme = {
+    radii: { ... },
+    fonts: { ... },
+    colors: { ... }
+  }
+  ```
+</CodeGroup>
+
+### Theme Examples
+
+Copy one of the theme objects below as a foundation for personalizing your swap widget's appearance. While doing so, consider incorporating other design elements to enhance the overall look and feel.
+
+***
+
+<Frame caption="Midnight Blue">
+  <img src="/images/reference/cad7f67-midnight_blue.png" />
+</Frame>
+
+<CodeGroup>
+  ```typescript typescript
+  const theme = darkTheme({
+      font: 'Inter',
+      primaryColor: '#4A90E2',
+      primaryHoverColor: '#6EA9F6',
+      headerBackground: '#283B5A',
+      contentBackground: '#354766',
+      footerBackground: '#283B5A',
+      textColor: '#C2D2E8',
+      borderColor: 'rgba(74, 144, 226, 0.2)',
+      overlayBackground: 'rgba(40, 59, 90, 0.85)',
+    })
+  ```
+</CodeGroup>

@@ -1,0 +1,45 @@
+---
+title: "zkSync Era NFT API"
+description: "Learn how to access zkSync Era NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with zkSync Era on Reservoir
+
+Reservoir offers access to zkSync Era & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **zkSync Era API Base URL** - You can access all Reservoir APIs by using the `https://api-zksync.reservoir.tools` base URL. When using the API reference docs for zkSync Era, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended zkSync Era NFT collection to test with is [zkSnowGlobe](https://explorer.zksync.io/address/0xc601a8b5884810df3109b0dee82598f15d633eb8) contract address: `0xc601a8b5884810df3109b0dee82598f15d633eb8`. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [zkSync Era Marketplace & Explorer](https://explorer.reservoir.tools/zkSync).
+
+## Access zkSync Era Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across all major marketplaces, including Opensea. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated Listings](/reference/getordersasksv4) - [sample response](https://api-zksync.reservoir.tools/orders/asks/v4?contracts=0xc601a8b5884810df3109b0dee82598f15d633eb8)
+* [Get Aggregated Offers](/reference/getordersbidsv5) - [sample response](https://api-zksync.reservoir.tools/orders/bids/v5?contracts=0xc601a8b5884810df3109b0dee82598f15d633eb8)
+* [Get Floor Prices](/reference/getcollectionsv5) - [sample response](https://api-zksync.reservoir.tools/collections/v5?id=0xc601a8b5884810df3109b0dee82598f15d633eb8)
+* [Get Sales Volume](/reference/getcollectionsdailyvolumesv1) - [sample response](https://api-zksync.reservoir.tools/collections/daily-volumes/v1?id=0xc601a8b5884810df3109b0dee82598f15d633eb8)
+* [Get Collection Metadata](/reference/gettokensv6) - [sample response](https://api-zksync.reservoir.tools/tokens/v6?collection=0xc601a8b5884810df3109b0dee82598f15d633eb8)
+
+## Trading on zkSync Era with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On zkSync Era, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy NFTs](/reference/postexecutebuyv7)
+* [Sell NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have zkSync Era support. Check out our list and bid endpoints below:
+
+* [List NFTs](/reference/postexecutelistv5)
+* [Bid on NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on zkSync Era
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full zkSync Era support.
+
+# Understanding zkSync Era
+
+zkSync Era is a Layer-2 protocol designed to scale Ethereum using advanced Zero-Knowledge (ZK) technology, aiming to offer hyperscalability without compromising on security or decentralization. The protocol has been rigorously tested and audited, inheriting 100% of Ethereum's security features. With a focus on user experience, zkSync Era has attracted interest from over 200 projects for deployment, indicating its potential for mainstream adoption.

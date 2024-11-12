@@ -1,0 +1,60 @@
+---
+title: "Cross-chain Execution"
+description: "Execute cross-chain transactions via Reservoir"
+---
+
+Reservoir supports cross-chain execution both for pre-defined Reservoir NFT actions (buy, sell, & mint) and arbitrary cross-chain transactions. You can use the full Reservoir aggregator product and let your users buy with any currency on any supported chain, regardless of where the mint or listing lives. Additionally, you can leverage Reservoir to execute you own custom contract calls, using our cross-chain infrastructure, letting your users pay for in-app actions with currency on any chain.
+
+## How it works
+
+Under the hood, Reservoir's cross-chain tech is powered by cross-chain relaying. This model results in low-cost, low-latency (1-10 seconds) cross-chain transactions.
+
+## How to use Reservoir's Cross-chain Execution
+
+You can use Reservoir Cross-chain Execution with Reservoir's pre-defined methods of the Reservoir Aggregator or Custom Call Methods via Relay
+
+### Cross-chain Execution with the Reservoir Aggregator
+
+To use cross-chain execution with the Reservoir Aggregator, i.e. to mint, buy or sell NFTs aggregated by Reservoir, simply use the Reservoir SDK to trigger cross-chain execution with the appropriate method. When using the Reservoir SDK to trigger a cross-chain purchase all that's required is additionally passing a `currencyChainId` to the buyToken method. This assumes you know which token you would like to buy or mint. You can leverage the Reservoir API to look at aggregated collection liquidity, or trending mints. Below is an example of what that would look like to buy a token from secondary:
+
+<CodeGroup>
+```typescript TypeScript
+import { getClient, Execute } from "@reservoir0x/reservoir-sdk";
+import { createWalletClient, http } from 'viem'
+
+...
+
+address = "0x8ba1f109551bD432803012645Ac136ddd6000000"
+wallet = createWalletClient({
+account: address,
+transport: http()
+})
+
+getClient()?.actions.buyToken({
+items: [{ token: "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d:1", quantity: 1 }],
+options: {
+currencyChainId: 10
+},
+wallet,
+onProgress: (steps: Execute['steps']) => {
+console.log(steps)
+}
+})
+```
+</CodeGroup>
+The above can also be used similarly for the Reservoir SDK mintToken method.
+
+### Custom Call Methods
+
+Reservoir Relay lets you execute arbitrary call data cross-chain using our custom call method. You can call custom contract methods, mint from custom contracts, mint + bridge (mint an NFT and bridge additional funds in one), or any other custom call execution.
+
+To get started make sure that you install and configure the [Relay SDK](https://docs.relay.link/references/sdk/getting-started) or [Relay UI Kit](https://docs.relay.link/references/relay-kit/overview) (which exposes a hook that allows you to easily get a quote and execute a cross chain transaction: [useQuote](https://docs.relay.link/references/relay-kit/hooks/useQuote) hook). To learn more please visit the [Relay docs](https://docs.relay.link/use-cases/cross-chain-execution).
+
+### Considerations
+
+In order to execute cross chain there are some prerequisites to consider:
+
+- **Balance:** User has enough balance on origin chain
+- **Wallet:** The examples below assume there is an injected browser wallet, although you can also obtain the wallet however you wish.
+- **Chain checking:** Ensuring that the user is on the correct chain
+- **Relayer Friendly:** Contract that we're interacting with must be [relayer friendly](/docs/relayer-friendly-contracts).

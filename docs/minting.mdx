@@ -1,0 +1,86 @@
+---
+title: "Aggregated Mints"
+description: "Integrate minting functionality & data right into your application through Reservoir. Supporting a number of direct mint platform integrations as well as auto-detecting most standard mint contracts."
+---
+
+Reservoir now supports minting across multiple chains & multiple platforms. Our mint capabilities cover a wide of mints through direct platform integrations and auto-detection. You can add minting using our API directly or using reservoirKit's collect modal. We also provide a host of data around mints including surfacing trending mints.
+
+# Executing Mints with Reservoir
+
+## mintToken
+
+Customizable and easy to integrate, the [Reservoir SDK](/reference/reservoir-sdk-jstsnode) offers **[mintToken](/reference/minttoken)** to embed minting into your app. If a collection mints out but your users want to own a token from the collection, we recommend checking out [buyToken](/reference/buytoken). You can pass the param `fillType=preferMint` to try minting first and then fall back to offering the floor priced token if minting is not available.
+
+## Mint Modal
+
+Reservoir makes it easy to add minting functionality through ReservoirKit's **[Mint Modal](/reference/mintmodal)**. The [ReservoirKit](/reference/reservoirkit) allows you to bring minting function with an easy to use & integrate UI Kit. Once minting closes, the mint modal does not default to secondary sale. If you're like to offer secondary sales after minting end, the [Sweep Modal](/reference/sweepmodal) automatically allows purchasing the lowest listings through Reservoir's aggregated ecosystem.
+
+## Minting API
+
+<Warning>
+  The Reservoir SDK [mintToken](/reference/minttoken) includes helpers that abstract the process of using the Minting API such as iterating through execution steps and returning callbacks that can be used to update your UI. If you are developing in TS/JS we recommend using the ReservoirSDK.
+</Warning>
+
+To mint tokens via Reservoir's API you can call the **[Mint Tokens](/reference/postexecutemintv1)&#x20;**&#x65;ndpoint. This API allows for users to specifically mint tokens only, but when minting is closed this endpoint will not default to secondary sale. If you'd like the option of offering secondary sale once minting ends, check out the [Buy Token ](/reference/postexecutebuyv7)API and set `fillType` to `preferMint`. `preferMint` will attempt to mint the token, if the token is already minted, then it will purchase the lowest priced token from aggregated secondary markets. If you exclusively want mint, we recommend the Mint Tokens API.
+
+# Trending Mints & other Mint Data
+
+Reservoir offers access to mint data by surfacing **Trending mints**, **Mint Volume per Chain**, **Mint Activity**, **Collection Mint Stage** & **Tokens Minted.**
+
+### Trending Mints
+
+To surface trending mints you can use the **[Top Trending Mints](/reference/getcollectionstrendingmintsv1)** API endpoint. This will surface trending mints only. To get trending mints and secondary sales, check out the [Top Trending Collections](/reference/getcollectionstrendingv1) endpoint.
+
+### Mint Volume per Chain
+
+To retrieve the mint volume for a specific chain use the [Chain Stats](/reference/getchainstatsv1) endpoint. This endpoint will return the requested chain's stats for mint count & mint volume, among other data for the previous 24 hrs and 7 days.
+
+### Mint Activities
+
+Build mint feeds for [collections](/reference/getcollectionsactivityv6), [tokens ](/reference/gettokenstokenactivityv5)& [users ](/reference/getusersactivityv6)using the various activity endpoints. By default, these endpoints will return results for sales, asks, transfers, bids canceled bids, canceled asks, and mints. To filter for only mints simply append `?types=mint` to your API URL or Filter the response by `"type": "mint"`
+
+### Collection Mint Stage
+
+To find out if a collection is still minting you can query the [Collections](/reference/getcollectionsv7) API and enable the `includeMintStages` parameter. This will enable the response to return the `mintStage` array which will include the **stage** (public-sale or presale), **price**, **start / end time** & **max mints per wallet**.
+
+### Tokens Minted
+
+View a stream of tokens minted from a collection by [subscribing ](/reference/websockets#interacting-with-the-websocket)to our `tokens.created` [websocket](/reference/token).
+
+# Mint Coverage
+
+## Platform Support
+
+We currently support minting from auto-detected mint contracts as well as direct integration with mints from [Zora](https://zora.co/), [ThirdWeb](https://thirdweb.com/solutions/minting), [Seadrop (OpenSea)](https://github.com/ProjectOpenSea/seadrop#seadrop) & [Manifold](https://manifold.xyz/)
+
+| Platform / Standard                   | Method      | Allowlist |
+| ------------------------------------- | ----------- | --------- |
+| Zora                                  | Direct      | ✅         |
+| ThirdWeb                              | Direct      | ✅         |
+| Seadrop                               | Direct      | ❌         |
+| Manifold                              | Direct      | ❌         |
+| Foundation                            | Direct      | ✅         |
+| Decent                                | Direct      | ✅         |
+| Sound                                 | Direct      | ✅         |
+| Mint.fun                              | Direct      | ❌         |
+| Artblocks                             | Direct      | ❌         |
+| Bueno                                 | Direct      | ❌         |
+| Highlight.xyz                         | Direct      | ❌         |
+| Titles                                | Direct      | ❌         |
+| Highlight                             | Direct      | ❌         |
+| Bueno                                 | Direct      | ❌         |
+| Fair                                  | Direct      | ❌         |
+| Fabric                                | Direct      | ❌         |
+| Paragraph                             | Direct      | ❌         |
+| Mirror                                | Direct      | ❌         |
+| [Generic Mint Contracts](/docs/mints) | Auto-Detect | ❌         |
+
+## Chain Support
+
+Our minting functionality is currently supported by all of our [supported chains](/reference/supported-chains).
+
+## Limitations
+
+* Currently, Reservoir supports minting of **existing contracts** created on other platforms, Reservoir does not create the NFT contract for minting.
+* We strive to have the most robust and accessible system possible, however, with minting, there is a limitation of how many types of contracts we can cover. At the moment we are only able to cover the mint contracts noted above and auto-detected mints, any others won't be covered and will return an error if attempted to execute.
+

@@ -1,0 +1,166 @@
+---
+title: "Buy in Any Cross-Chain ETH or ERC-20's"
+---
+
+Reservoir empowers users to buy NFTs in any supported ERC-20 currency across all chains. Reservoir allows builder to have users mint or buy on a chain with any supported currency like minting a Base NFT with $DEGEN. We also allow builders to have users pay in any ETH from any chain for a mint or secondary sale like buying an Azuki with Optimism ETH.
+
+There are some pre-requisites for a currency to be available for buying.
+
+* Any currency on the same chain can be used but there must be liquidity; e.g. swappable on Uniswap
+* ETH on any chain may be used provided ETH in the native gas token
+* Uniswap is the only provider when swapping across chains; 1inch is an alternative if swapping on a single chain.
+* Support is only for mainnets; there is no support for testnets
+
+## Using ReservoirKit
+
+To support buying in different currencies with the ReservoirKit, you'll need to configure `paymentTokens` in your `chains` configuration on your `ReservoirKitProvider`. You will need to follow the configuration shared [here](/reference/reservoir-sdk-jstsnode#chain-configuration) or reference the code sample below. This will allow users to a select different currencies to pay with than the listing currency.
+
+<CodeGroup>
+  ```typescript typescript
+  import { reservoirChains } from '@reservoir0x/reservoir-sdk'
+  import {
+    ReservoirKitProvider,
+    darkTheme,
+  } from '@reservoir0x/reservoir-kit-ui'
+  import { WagmiProvider } from 'wagmi'
+
+  const wagmiConfig = ...
+
+  <WagmiProvider config={wagmiConfig}>
+  	<ReservoirKitProvider
+    	options={{
+      	apiKey: "YOUR_KEY",
+      	chains: [{
+        	...reservoirChains.mainnet,
+        	active: true,
+          paymentTokens:[ 
+            { 
+              chainId: 1,
+              address: zeroAddress,
+              symbol: 'ETH',
+              name: 'ETH', 
+              decimals: 18 
+            }, 
+            {
+              chainId: 1, 
+              address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', 
+              symbol: 'USDC', 
+              name: 'USDC', 
+              decimals: 6
+            }, 
+            { 
+              chainId: 1, 
+              address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', 
+              symbol: 'WETH', 
+              name: 'WETH', 
+              decimals: 18
+            },
+            {
+              chainId: 8453,
+              address: zeroAddress,
+              symbol: 'Base ETH',
+              name: 'Base ETH',
+              decimals: 18,
+            },
+            {
+              chainId: 8453,
+              address: '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed',
+              symbol: 'DEGEN',
+              name: 'Degen Base',
+              decimals: 18,
+            }
+            {
+              chainId: 10,
+              address: zeroAddress,
+              symbol: 'Optimism ETH',
+              name: 'Optimism ETH',
+              decimals: 18,
+            }
+        	]
+      	}],
+       
+      	source: "YOUR_SOURCE"
+      	...
+    	}}
+  	>
+     { Your App }
+
+  	</ReservoirKitProvider>
+  </WagmiProvider>
+  ```
+</CodeGroup>
+
+## Using the Reservoir SDK
+
+Using the [buyToken](/reference/buytoken) action, you will need to add a `currency` contract address & `currencyChainId` within the `options` parameter. By default, buying is in the original currency of the order. You can also specify the swap provider to `uniswap` or `1inch`; the default is `uniswap`
+
+In the example below, we set the currency to USDC using the contract address `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`, currencyChainId `1`, and swap provider `1inch`.
+
+<CodeGroup>
+  ```typescript type
+  import { getClient, Execute } from "@reservoir0x/reservoir-sdk";
+  import { createWalletClient, http } from 'viem'
+
+  ...
+
+  const wallet = createWalletClient({
+    account: "0x8ba1f109551bD432803012645Ac136ddd6000000",
+    transport: http()
+  })
+
+  getClient()?.actions.buyToken({
+    items: [{ 
+      token: "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d:1",
+  		quantity: 1,
+    }],
+    options: {
+      currency: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      currencyChainId: "1",
+      swapProvider: "1inch"
+    },
+    wallet,
+    onProgress: (steps: Execute['steps']) => {
+      console.log(steps)
+    }
+  })
+  ```
+</CodeGroup>
+
+## Using the Reservoir API
+
+<Warning>
+  [Reservoir SDK](###using-the-reservoir-sdk) includes helpers that abstract the process of iterating through steps, and returning callbacks that can be used to update your UI.
+</Warning>
+
+For the [`execute/buy`]() API endpoint, you will need to pass the currency contract address and currency chain id. We offer two swap providers, Uniswap and 1inch. Specifying the swap provider is optional as we default to Uniswap.
+
+In the example below, I am setting the currency to USDC using the contract address `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`, currency chain id `1`, and swap provider `uniswap`.
+
+<CodeGroup>
+  ```curl curl
+  curl --request POST \
+       --url https://api.reservoir.tools/execute/buy/v7 \
+       --header 'accept: */*' \
+       --header 'content-type: application/json' \
+       --header 'x-api-key: 440c94e2-0f99-5c9e-8251-fee751d21aa1' \
+       --data '
+  {
+    "items": [
+      {
+        "fillType": "preferMint",
+        "token": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d:1"
+      }
+    ],
+    "onlyPath": false,
+    "normalizeRoyalties": false,
+    "allowInactiveOrderIds": false,
+    "partial": false,
+    "skipBalanceCheck": false,
+    "excludeEOA": false,
+    "swapProvider": "uniswap",
+    "taker": "0xF296178d553C8Ec21A2fBD2c5dDa8CA900000000",
+    "currency": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "currencyChainId": 1
+  }
+  ```
+</CodeGroup>

@@ -1,0 +1,70 @@
+---
+title: "CollectButton"
+description: "Leverage the CollectButton to easily add minting and sweeping to your app"
+---
+
+![](/images/reference/48f2f46-image.png)
+
+# Prerequisites ⚙️
+
+[Install and configure ReservoirKit](/reference/installing-reservoirkit).
+
+# CollectButton
+
+ReservoirKit provides a simple to configure button for facilitating sweeping and minting tokens in your react app. The CollectButton automatically detects if a given collection or token is minting and handles rendering the [MintModal](/reference/mintmodal) or [SweepModal](/reference/sweepmodal) for you. Below is an example of a simple CollectButton setup.
+
+<CodeGroup>
+  ```typescript typescript
+  import { CollectButton } from '@reservoir0x/reservoir-kit-ui'
+
+  <CollectButton
+    contract={contract}
+  	onConnectWallet={onConnectWallet}
+  />
+  ```
+</CodeGroup>
+
+Let's dive into the parameters:
+
+| **Prop**                    | **Description**                                                                                                                                                                                                     | Required |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| **onConnectWallet**         | A function that opens the connect wallet flow. Use this to prompt your connect modal and continue the ux of connecting the user's wallet.                                                                           | Y        |
+| **contract**                | The contract address of the collection you wish to purchase from. Can be undefined until the data is ready. **Note:** A contract, collectionId or token is required                                                 | N        |
+| **collectionId**            | The collection id of the collection you wish to purchase from. Can be undefined until the data is ready. **Note:** A contract, collectionId or token is required                                                    | N        |
+| **token**                   | The token you wish to purchase from. Can be undefined until the data is ready. **Format:** `0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63:704`**Note:** A contract, collectionId or token is required                  | N        |
+| **chainId**                 | The chain id to force the modal to render, ensure that this is a chain that is configured in the ReservoirKit provider. If not specified then the active chain configured in the ReservoirKitProvider will be used. | N        |
+| **optionalMintModalProps**  | The props that are passed into the MintModal. These parameters can be viewed on the [MintModal docs](/reference/mintmodal).                                                                                         | N        |
+| **optionalSweepModalProps** | The props that are passed into the SweepModal. These parameters can be viewed on the [SweepModal docs](/reference/sweepmodal).                                                                                      | N        |
+| **triggerCss**              | An inline style prop override that's applied to the trigger                                                                                                                                                         | N        |
+| **swrOptions**              | [SWR infinite configuration options](https://swr.vercel.app/docs/pagination#parameters)                                                                                                                             | N        |
+| **customTriggerRenderer**   | A function to handle rendering your own custom trigger. All of the underlying data that the default CollectButton uses is provided for you.                                                                         | N        |
+
+## Custom CollectButton
+
+The CollectButton also comes with a custom renderer which can be used to just get the data layer that the CollectButton uses internally to handle the underlying business logic. With the renderer you can rebuild the button and underlying modals completely to your liking. Below is an example of how it works in practice.
+
+<CodeGroup>
+  ```typescript typescript
+  import { CollectButton } from '@reservoir0x/reservoir-kit-ui'
+
+  <CollectButton.Custom
+  	onConnectWallet={onConnectWallet}
+    contract={contract}>
+    {({
+       loading,
+       publicMintData,
+       mintStages,
+       collection,
+       tokenData,
+    }) => {
+      { Your Custom React Elements }
+    })}
+  </CollectButton.Custom>
+  ```
+</CodeGroup>
+
+The custom CollectButton takes in the same parameters as before. You'll then have access to the data that the CollectButton uses internally and can use all or some of that data in your custom implementation.
+
+<Check>
+  Now that we've added a CollectButton to your dApp, let's [customize the theme to match your brand](/reference/theming).
+</Check>

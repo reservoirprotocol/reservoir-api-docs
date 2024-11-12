@@ -1,0 +1,41 @@
+---
+title: "B3 NFT API"
+description: "Learn how to access B3 NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with B3 on Reservoir
+
+Reservoir offers access to B3 & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **B3 API Base URL** - You can access all Reservoir APIs by using the `https://api-b3.reservoir.tools` base URL. When using the API reference docs for B3, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended B3 NFT collection to test with is [Reservoir ERC721 Test Collection](https://explorer.b3.fun/token/0x9b299Dc1340B05f1ABcF1543E04f6DA4C35341Af) contract address: `0x9b299dc1340b05f1abcf1543e04f6da4c35341af `. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [B3 Marketplace & Explorer](https://explorer.reservoir.tools/abstract).
+
+## Access B3 Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across the Reservoir ecosystem. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated B3 Listings](/reference/getordersasksv5)
+* [Get Aggregated B3 Offers](/reference/getordersbidsv6)
+* [Get B3 Floor Prices](/reference/getcollectionsv7)
+* [Get B3 Sales Volume](/reference/getcollectionsdailyvolumesv1)
+* [Get B3 Collection Metadata](/reference/gettokensv7)
+
+## Trading on B3 with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On B3, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy B3 NFTs](/reference/postexecutebuyv7)
+* [Sell B3 NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have B3 support. Check out our list and bid endpoints below:
+
+* [List B3 NFTs](/reference/postexecutelistv5)
+* [Bid on B3 NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on B3
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full B3 support.

@@ -1,0 +1,148 @@
+---
+title: "Usage Credits"
+description: "What are usage credits and how to use them."
+---
+
+# What are credits?
+
+Credits are a unit of measurement that represent the computational resources your apps are consuming on Reservoir. Not all API queries are equal and some can be far more lightweight than others. Credits allow us to more fairly weigh different queries and actions and ensure you're only paying for what you need.
+
+To keep things as simple as possible, **most requests cost 1 credit**. Only a handful of computationally heavy endpoints are priced higher (see below).
+
+# What are additional credits?
+
+Each subscription plan offers a certain amount of included credits that resets with each billing cycle. Additional credits can be consumed and will be charged to your account at the end of the billing cycle. For more information about included credit amounts and additional credits costs for each subscription plan, [visit our pricing page](https://reservoir.tools/pricing).
+
+# What are rate limits and how are they measured?
+
+Rate limits are designed to protect the Reservoir network from abuse. Each subscription plan is offered a certain amount of credits that can be consumed every second (credits per second) for each of your apps (api key). For more information about credits per second for each subscription plan, [visit our pricing page](https://reservoir.tools/pricing).
+
+Please note that when hitting the rate limit, this does go towards your API usage. For example, if my API subscription limit is 1,000/minute but I make 2,000/minute then I will be using 2,000/minute even though half are error messages.
+
+# How do I monitor my usage?
+
+You can monitor your company's credit usage from the current and previous billing cycle in the [Developer Dashboard's usage & billing section](https://dashboard.reservoir.tools/usage-and-billing?tab=usage).
+
+# Websocket costs
+
+Every 100 websocket messages received will consume 1 credit. Learn more about how you can filter websocket events to reduce credit usage under the [Subscription Options](/reference/asks#subscription-options) sections of the websocket docs.
+
+# Endpoint costs
+
+Each API query uses a different amount of computational resources. See costs breakdown of each API endpoint below:
+
+## Collections
+
+| Route                                                                                                              | Base Cost         | Extra Costs |
+| ------------------------------------------------------------------------------------------------------------------ | ----------------- | ----------- |
+| [/collections/\*](/reference/getcollectionsv7)                                                                     | 1 credits/request |             |
+| [/search/collections/\*](/reference/getsearchcollectionsv2)                                                        | 1 credits/request |             |
+| [/collections/\{collection}/supported-marketplaces/\*](/reference/getcollectionscollectionsupportedmarketplacesv1) | 1 credits/request |             |
+| [/users/\{user}/collections/\*](/reference/getusersusercollectionsv3)                                              | 1 credits/request |             |
+| [/collections/\{collection}/community/\*](/reference/putcollectionscollectioncommunityv1)                          | 1 credits/request |             |
+| [/collections-sets/\*](/reference/postcollectionssetsv1)                                                           | 1 credits/request |             |
+| [/contracts-sets/\*](/reference/postcontractssetsv1)                                                               | 1 credits/request |             |
+| [/collections/refresh/\*](/reference/postcollectionsrefreshv2)                                                     | 1 credits/request |             |
+
+## Tokens
+
+| Route                                                        | Base Cost         | Extra Costs |
+| ------------------------------------------------------------ | ----------------- | ----------- |
+| [/tokens/\*](/reference/gettokensv6)                         | 1 credits/request |             |
+| [/tokens/bootstrap/\*](/reference/gettokensbootstrapv1)      | 1 credits/request |             |
+| [/tokens/floor/\*](/reference/gettokensfloorv1)              | 1 credits/request |             |
+| [/tokens/ids/\*](/reference/gettokensidsv1)                  | 1 credits/request |             |
+| [/tokens/flag/changes/\*](/reference/gettokensflagchangesv1) | 1 credits/request |             |
+| [/users/\{user}/tokens/\*](/reference/getusersusertokensv7)  | 1 credits/request |             |
+| [/token-sets/\*](/reference/posttokensetsv2)                 | 1 credits/request |             |
+| [/tokens/refresh/\*](/reference/posttokensrefreshv1)         | 1 credits/request |             |
+
+## Orders
+
+| Route                                                                       | Base Cost         | Extra Costs |
+| --------------------------------------------------------------------------- | ----------------- | ----------- |
+| [/orders/asks/\*](/reference/getordersasksv4)                               | 1 credits/request |             |
+| [/orders/bids/\*](/reference/getordersbidsv5)                               | 1 credits/request |             |
+| [/orders/depth/\*](/reference/getordersdepthv1)                             | 1 credits/request |             |
+| [/orders/users/\{user}/top-bids/\*](/reference/getordersusersusertopbidsv4) | 1 credits/request |             |
+
+## Events
+
+| Route                                                                                 | Base Cost         | Extra Costs |
+| ------------------------------------------------------------------------------------- | ----------------- | ----------- |
+| [/events/asks/\*](/reference/geteventsasksv3)                                         | 1 credits/request |             |
+| [/events/bids/\*](/reference/geteventsbidsv3)                                         | 1 credits/request |             |
+| [/events/collections/floor-ask/\*](/reference/geteventscollectionsflooraskv2)         | 1 credits/request |             |
+| [/events/collections/top-bid/\*](/reference/geteventscollectionstopbidv2)             | 1 credits/request |             |
+| [/events/tokens/floor-ask/\*](https://api.reservoir.tools/events/tokens/floor-ask/v4) | 1 credits/request |             |
+
+## Execute (Buy & Sell)
+
+| Route                                                                         | Base Cost          | Extra Costs |
+| ----------------------------------------------------------------------------- | ------------------ | ----------- |
+| [/execute/ask/\*](/reference/postexecutelistv5)                               | 1 credits/request  |             |
+| [/execute/bid/\*](/reference/postexecutebidv5)                                | 1 credits/request  |             |
+| [/execute/cancel/\*](/reference/postexecutecancelv3)                          | 1 credits/request  |             |
+| [/execute/buy/\*](/reference/postexecutebuyv7)                                | 10 credits/request |             |
+| [/execute/sell/\*](/reference/postexecutesellv7)                              | 10 credits/request |             |
+| [/order/\*](/reference/postorderv4)                                           | 1 credits/request  |             |
+| [/cross-posting-orders/\*](/reference/getcrosspostingordersv1)                | 1 credits/request  |             |
+| [/transactions/\{txHash}/synced/\*](/reference/gettransactionstxhashsyncedv1) | 1 credits/request  |             |
+
+## Activity
+
+| Route                                                               | Base Cost         | Extra Costs |
+| ------------------------------------------------------------------- | ----------------- | ----------- |
+| [/collections/activity/\*](/reference/getcollectionsactivityv6)     | 1 credits/request |             |
+| [/tokens/\{token}/activity/\*](/reference/gettokenstokenactivityv5) | 1 credits/request |             |
+| [/users/activity/\*](/reference/getusersactivityv6)                 | 1 credits/request |             |
+
+## Sales & Transfers
+
+| Route                                               | Base Cost         | Extra Costs |
+| --------------------------------------------------- | ----------------- | ----------- |
+| [/sales/\*](/reference/getsalesv5)                  | 1 credits/request |             |
+| [/transfers/\*](/reference/gettransfersv3)          | 1 credits/request |             |
+| [/transfers/bulk/\*](/reference/gettransfersbulkv1) | 1 credits/request |             |
+
+## Owners
+
+| Route                                                                                                                             | Base Cost         | Extra Costs |
+| --------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ----------- |
+| [/owners/\*](/reference/getownersv2)                                                                                              | 1 credits/request |             |
+| [/owners/common-collections/\*](/reference/getownerscommoncollectionsv1)                                                          | 1 credits/request |             |
+| [/owners/cross-collections/\*](/reference/getownerscrosscollectionsv1)                                                            | 1 credits/request |             |
+| [/collections/\{collection}/owners-distribution/\*](/reference/getcollectionscollectionownersdistributionv1)                      | 1 credits/request |             |
+| [/collections-sets/\{collectionsSetId}/owners-distribution/\*](/reference/getcollectionssetscollectionssetidownersdistributionv1) | 1 credits/request |             |
+
+## Stats
+
+| Route                                                                    | Base Cost         | Extra Costs |
+| ------------------------------------------------------------------------ | ----------------- | ----------- |
+| [/stats/\*](/reference/getstatsv2)                                       | 1 credits/request |             |
+| [/collections/daily-volumes/\*](/reference/getcollectionsdailyvolumesv1) | 1 credits/request |             |
+| [/liquidity/users/\*](/reference/getliquidityusersv2)                    | 1 credits/request |             |
+
+## Sources
+
+| Route                                  | Base Cost         | Extra Costs |
+| -------------------------------------- | ----------------- | ----------- |
+| [/sources/\*](/reference/getsourcesv1) | 1 credits/request |             |
+
+## Oracle
+
+| Route                                                                         | Base Cost         | Extra Costs |
+| ----------------------------------------------------------------------------- | ----------------- | ----------- |
+| [/oracle/collections/floor-ask/\*](/reference/getoraclecollectionsflooraskv5) | 1 credits/request |             |
+| [/oracle/collections/top-bid/\*](/reference/getoraclecollectionstopbidv2)     | 1 credits/request |             |
+| [/oracle/tokens/status/\*](/reference/getoracletokensstatusv2)                | 1 credits/request |             |
+
+## Utility
+
+| Route                                                                       | Base Cost         | Extra Costs |
+| --------------------------------------------------------------------------- | ----------------- | ----------- |
+| [/api-keys/\{key}/rate-limits](/reference/getapikeyskeyratelimits)          | 1 credits/request |             |
+| [/tokens/flag/\*](/reference/posttokensflagv1)                              | 1 credits/request |             |
+| [/management/orders/simulate/\*](/reference/postmanagementorderssimulatev1) | 1 credits/request |             |
+| [/execute/auth-signature/\*](/reference/postexecuteauthsignaturev1)         | 1 credits/request |             |
+| [/execute/cancel-signature/\*](/reference/postexecutecancelsignaturev1)     | 1 credits/request |             |

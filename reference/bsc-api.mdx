@@ -1,0 +1,45 @@
+---
+title: "Binance Smart Chain (BSC) NFT API"
+description: "Learn how to access BSC NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with BSC on Reservoir
+
+Reservoir offers access to BSC & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **BSC API Base URL** - You can access all Reservoir APIs by using the `https://api-bsc.reservoir.tools/` base URL. When using the API reference docs for BSC, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended BSC NFT collection to test with is [Polychain Monsters](https://bscscan.com/address/0x85f0e02cb992aa1f9f47112f815f519ef1a59e2d) contract address: `0x85F0e02cb992aa1F9F47112F815F519EF1A59E2D`. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [BSC Marketplace & Explorer](https://explorer.reservoir.tools/BSC).
+
+## Access BSC Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across all major marketplaces, including Opensea. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated Listings](/reference/getordersasksv5) - [sample response](https://api-bsc.reservoir.tools/orders/asks/v5?contracts=0x85F0e02cb992aa1F9F47112F815F519EF1A59E2D)
+* [Get Aggregated Offers](/reference/getordersbidsv6) - [sample response](https://api-bsc.reservoir.tools/orders/bids/v6)
+* [Get Floor Prices](/reference/getcollectionsv7) - [sample response](https://api-bsc.reservoir.tools/collections/v7?id=0x85F0e02cb992aa1F9F47112F815F519EF1A59E2D)
+* [Get Sales Volume](/reference/getcollectionsdailyvolumesv1) - [sample response](https://api-bsc.reservoir.tools/collections/daily-volumes/v1?id=0x85F0e02cb992aa1F9F47112F815F519EF1A59E2D)
+* [Get Collection Metadata](/reference/gettokensv6) - [sample response](https://api-bsc.reservoir.tools/tokens/v6?collection=0x85F0e02cb992aa1F9F47112F815F519EF1A59E2D)
+
+## Trading on BSC with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On BSC, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy NFTs](/reference/postexecutebuyv7)
+* [Sell NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have BSC support. Check out our list and bid endpoints below:
+
+* [List NFTs](/reference/postexecutelistv5)
+* [Bid on NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on BSC
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full BSC support.
+
+# Understanding BSC
+
+Binance initially developed the Binance Chain, which had limitations in programmability. To address these limitations, they introduced the Binance Smart Chain (BSC), specifically designed for smart contract-based applications. BSC operates alongside the native Binance Chain, enabling users to leverage high transaction capacity. Additionally, BSC incorporated the Ethereum Virtual Machine, allowing it to run Ethereum-based applications. The primary objective of BSC was to facilitate the development of decentralized applications (DApps) and aid users in efficiently managing their digital assets across chains. BSC was subsequently rebranded as the BNB chain, marking a significant evolution in its journey.

@@ -1,0 +1,117 @@
+---
+title: "Place Trait Bids"
+description: "Learn how to create attribute bids for collections."
+---
+
+Reservoir allows you to create attribute or trait bids for collections. With this guide, we'll go over the best way to implement attribute offers using the SDK, ReservoirKit, and APIs. You'll also learn how to send these bids to specific order books or platforms.
+
+## Reservoir SDK
+
+Using [placeBid](/reference/placebid) in the SDK, you can create attribute or trait bids. You'll need to use the available `params` from the [Create Bids](/reference/postexecutebidv5) API to pass in the SDK. This will allow you to create attribute offers. Remember to set `orderbook` and corresponding `orderKind` to the platform you want to submit the order; you can find the most current list in our [Bid API](/reference/postexecutebidv5).
+
+In the code example below, you will see that the `attributeKey` and `attributeValue` are both passed. These are both case sensitive. You will also need to include the `collection` id.
+
+<CodeGroup>
+  ```typescript typescript
+  import { getClient, Execute } from "@reservoir0x/reservoir-sdk";
+  import { createWalletClient, http } from 'viem'
+
+  ...
+
+  address = "0x8ba1f109551bD432803012645Ac136ddd6000000"
+  wallet = createWalletClient({
+    account: address,
+    transport: http()
+  })
+
+  getClient()?.actions.placeBid({
+    bids: [{  
+        weiPrice: 10000000000000000,  
+        orderbook: 'reservoir',  
+        orderKind: 'seaport-v1.5',  
+        collection: "0xbd3531da5cf5857e7cfaa92426877b022e612cf8",
+      	attributeKey: "Face",
+        attributeValue: "Normal",
+     		expirationTime: "1775066025"
+    }],
+    wallet,
+    onProgress: (steps: Execute['steps']) => {
+      console.log(steps)
+    }
+  })
+  ```
+</CodeGroup>
+
+## ReservoirKit
+
+The [BidModal](/reference/bidmodal) will be used to create attribute bids or trait offers. You'll need to pass the `attribute` param in the payload to create the offer. Currently, all orders created with ReservoirKit will be submitted to the Reservoir native orderbook. You can see full distribution of these offers in our [Supported Marketplaces](/reference/supported-marketplaces) doc. If you need to be able to publish offers to other orderbooks besides Reservoir, we recommend using the [SDK](#using-the-reservoir-sdk).
+
+Check out the code sample below for making a trait offer in Reservoir's orderbook:
+
+<CodeGroup>
+  ```typescript typescript
+  import { BidModal } from '@reservoir0x/reservoir-kit-ui'
+  import { useState } from 'react'
+
+  <BidModal
+    trigger={
+      <button>
+        Place Bid
+      </button>
+    }
+    collectionId="0xbd3531da5cf5857e7cfaa92426877b022e612cf8"
+    openState={openState}
+    attribute={{
+     key: "Face",
+     value: "Normal"
+    }}
+    onBidComplete={(data) => {
+      console.log('Bid Complete', data)
+    }}
+    onBidError={(error, data) => {
+      console.log('Bid Transaction Error', error, data)
+    }}
+    onClose={(data, stepData, currentStep) => {
+      console.log('BidModal Closed')
+    }}
+  />
+  ```
+</CodeGroup>
+
+## Reservoir API
+
+<Warning>
+  [Reservoir SDK](###using-the-reservoir-sdk) includes helpers that abstract the process of iterating through steps, and returning callbacks that can be used to update your UI.
+</Warning>
+
+To place trait or attribute bids, you'll need to pass a `collection` id, `attributeType`, and `attribute` in the payload. You can also set the `orderbook` and `orderKind`; below we set them to `reservoir` and `seaport-v1.5`. You can see currently available orderbooks and order kinds in the [Bid API doc](/reference/postexecutebidv5).
+
+Below is a code example:
+
+<CodeGroup>
+  ```curl curl
+  curl --request POST \
+       --url https://api.reservoir.tools/execute/bid/v5 \
+       --header 'accept: */*' \
+       --header 'content-type: application/json' \
+       --header 'x-api-key: 440c94e2-0f99-5c9e-8251-fee751d21aa1' \
+       --data '
+  {
+    "params": [
+      {
+        "orderKind": "seaport-v1.5",
+        },
+        "orderbook": "reservoir",
+        "attributeKey": "Face",
+        "attributeValue": "Normal",
+        "collection": "0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63",
+        "weiPrice": "1000000000000000000",
+        "expirationTime": "1775066025"
+      }
+    ],
+    "maker": "0x8ba1f109551bD432803012645Ac136ddd6000000"
+  }
+  '
+  ```
+</CodeGroup>
+

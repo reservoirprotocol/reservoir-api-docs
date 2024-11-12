@@ -1,0 +1,41 @@
+---
+title: "Cyber NFT API"
+description: "Learn how to access Cyber NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with Cyber on Reservoir
+
+Reservoir offers access to Cyber & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **Cyber API Base URL** - You can access all Reservoir APIs by using the `https://api-cyber.reservoir.tools` base URL. When using the API reference docs for Cyber, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended Cyber NFT collection to test with is [Reservoir ERC721 Test Collection](https://cyberscan.co/address/0xac022986bf5a236b2fcaea83773e37ac95980e02) contract address: `0xac022986bf5a236b2fcaea83773e37ac95980e02`. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [Cyber Marketplace & Explorer](https://explorer.reservoir.tools/cyber).
+
+## Access Cyber Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across the Reservoir ecosystem. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated Cyber Listings](/reference/getordersasksv5)
+* [Get Aggregated Cyber Offers](/reference/getordersbidsv6)
+* [Get Cyber Floor Prices](/reference/getcollectionsv7)
+* [Get Cyber Sales Volume](/reference/getcollectionsdailyvolumesv1)
+* [Get Cyber Collection Metadata](/reference/gettokensv7)
+
+## Trading on Cyber with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On Cyber, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy Cyber NFTs](/reference/postexecutebuyv7)
+* [Sell Cyber NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have Cyber support. Check out our list and bid endpoints below:
+
+* [List Cyber NFTs](/reference/postexecutelistv5)
+* [Bid on Cyber NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on Cyber
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full Cyber support.

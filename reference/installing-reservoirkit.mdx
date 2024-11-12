@@ -1,0 +1,102 @@
+---
+title: "Installing ReservoirKit"
+description: "ReservoirKit is a React library that makes it easy to add marketplace functionality and UI into your project. If you are not using React and need a custom solution you can use the [Reservoir SDK](/reference/reservoir-sdk-jstsnode)."
+---
+
+# Installing ReservoirKit
+
+<CodeGroup>
+  ```shell shell
+  yarn add @reservoir0x/reservoir-kit-ui
+  ```
+</CodeGroup>
+
+Also make sure to install the peer dependencies required by ReservoirKit if your application doesn't already include them:
+
+<CodeGroup>
+  ```shell shell
+  yarn add wagmi viem react react-dom
+  ```
+</CodeGroup>
+
+*Note: You do not need to install the reservoir-sdk as it will be installed automatically as part of reservoir-kit-ui.*
+
+ReservoirKit UI relies on [wagmi](https://wagmi.sh/), [\[email protected\]](/cdn-cgi/l/email-protection#3c4e595d5f487c0d04120c) and [viem](https://viem.sh/). Refer to the [package json](https://github.com/reservoirprotocol/reservoir-kit/blob/main/packages/ui/package.json#L60) for version requirements and compatability.
+
+If your application uses [radix-ui](https://www.radix-ui.com/docs/primitives) you'll need to ensure that the radix ui components version match what `reservoir-kit-ui` is using. Deviating from that version may cause issues.
+
+### ethers support
+
+If your application uses ethers and you're not ready to upgrade to viem yet, the wagmi team has created an [ethers adapter](https://wagmi.sh/react/ethers-adapters) to help bridge the gap. *Note: you'll still need to install viem.*
+
+# Configuring ReservoirKit UI
+
+<CodeGroup>
+  ```typescript typescript
+  import { reservoirChains } from '@reservoir0x/reservoir-sdk'
+  import {
+    ReservoirKitProvider,
+    darkTheme,
+  } from '@reservoir0x/reservoir-kit-ui'
+  import { WagmiProvider } from 'wagmi'
+
+  const wagmiConfig = ...
+
+  const theme = darkTheme({
+    headlineFont: "Sans Serif",
+    font: "Serif",
+    primaryColor: "#323aa8",
+    primaryHoverColor: "#252ea5",
+  })
+  <WagmiProvider config={wagmiConfig}>
+  	<ReservoirKitProvider
+    	options={{
+      	apiKey: "YOUR_KEY",
+      	chains: [{
+        	...reservoirChains.mainnet,
+        	active: true,
+      	}],
+      	source: "YOUR_SOURCE"
+      	...
+    	}}
+    	theme={theme}
+  	>
+     { Your App }
+
+  	</ReservoirKitProvider>
+  </WagmiProvider>
+  ```
+</CodeGroup>
+
+The sample code above is all you need to get started with ReservoirKit. Let's break it down step by step. Start by importing the `ReservoirKitProvider` which is needed for configuring ReservoirKit. Also import a theme of your choice, we provide a lightTheme and a darkTheme. Next we import the `WagmiConfig`, Wagmi is a peer dependency of ReservoirKit.
+
+Now that we have all the imports ready we can continue by supplying some options. You'll need to supply an array with at least one Reservoir chain. Read more below about the Reservoir chain object.
+
+Now we create a theme. As mentioned previously we have a few preloaded themes with the ability to override some variables, like colors and fonts. Learn more about theming options [here](/reference/theming).
+
+Next we wrap our app with the `ReservoirKitProvider` and pass it some options. Below is a list of ReservoirKit UI options:
+
+| Option                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Required |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| **chains**                       | An array of at least one chain. To learn more about the chain configuration, [click here](/reference/reservoir-sdk-jstsnode#chain-configuration). The Reservoir SDK, which is bundled as a part of ReservoirKit exports preconfigured chains for your convenience.                                                                                                                                                                                                                                                                                                                                                          | N        |
+| **apiKey**                       | While optional it will raise the rate limit for your application. We recommend getting a [free instant key](/reference/dashboard-sign-up) before deploying to production.                                                                                                                                                                                                                                                                                                                                                                                                                                                   | N        |
+| **disablePoweredByReservoir**    | Used to disable the powered by Reservoir footers.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | N        |
+| **disableJumperLink**            | Used to disable redirecting a user to the Jumper exchange.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | N        |
+| **normalizeRoyalties**           | Global setting to add royalties on top of orders that do not include royalties.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | N        |
+| **coinGecko**                    | Configuration for coingecko.**proxy**: You can configure a proxy url, in case you have your api key behind a proxy url.**apiKey**:You can also just directly configure an API key, we don't recommend this as this will leak your key but it is the easiest way to configure a coingecko api key.**coinIds**: An object mapping symbols to coingecko coin ids. Refer to the [coingecko api](https://api.coingecko.com/api/v3/coins/list) to manually map a coingecko coin id to a symbol in the case of a conflict. If there is a conflict ReservoirKit will not display a usd price unless a coingecko id is manually set. | N        |
+| **alwaysIncludeListingCurrency** | Control whether the original listing currency is always included in the available payment tokens. This is enabled by default.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | N        |
+| **preferDisplayFiatTotal**       | Swap crypto totals on purchase modals with fiat (usd) totals.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | N        |
+| **convertLink**                  | An object with the following properties: `tokenUrl` and `chainUrl`. `chainUrl` must be present and `tokenUrl` is optional. The urls can include a **\{toChain}** and **\{toToken}** placeholder respectively. These will be replaced during runtime. Use these urls to configure where your users go when they need to add funds (buying) or wrap ETH (bidding).                                                                                                                                                                                                                                                            | N        |
+| *ReservoirKit Client options*    | [More options ](/reference/reservoir-sdk-jstsnode#configuring-the-reservoir-sdk)can be configured for the underlying client instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | N        |
+
+You can also pass in `swrOptions` which allow you to further [configure swr](https://swr.vercel.app/docs/global-configuration) at a global level.
+
+We also pass in the theme we previously set up. Now we need to make sure we wrap our application in the `WagmiConfig`, this should be at the top level as shown in the code snippet. Follow the instructions in their docs to set up the `WagmiClient` and then pass it into the `WagmiConfig`. Finally nest your application code within the `WagmiConfig` and `ReservoirKitProvider`.
+
+Everything is now correctly configured and ready to go. One last thing you may want to set up for your domain is [custom source metadata](/docs/how-to-configure-custom-source-metadata) which ReservoirKit as well as the [Indexer](/docs/indexer) use to dynamically keep a catalog of all marketplace source metadata.
+
+If you're having any trouble consult the [troubleshooting guide](/reference/troubleshooting) before reaching out to support.
+
+<Check>
+  Now that we've installed and configured ReservoirKit lets [add a buy modal](/reference/buymodal).
+</Check>

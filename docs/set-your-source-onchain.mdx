@@ -1,0 +1,120 @@
+---
+title: "Set Your Source Onchain"
+
+---
+
+Onchain attribution provides the solution for precise on-chain transaction attribution when orders are fulfilled through common exchange contracts. This allows apps to showcase their volume and sales on-chain through tools like Dune. This doc will help you utilize onchain attribution. To read more behind this concept, check out [Marketplace Source Attribution](/docs/calldata-attribution).
+
+Reservoir allows you to attribute sales, listings, and bids to your source whether that is a marketplace, wallet, or app. The method you choose to interact with Reservoir determines how to set your source. Reference the guides below to set your source properly.
+
+With your source is set properly, you will have orders and transactions attributed to your platform. Learn more about our source attribution methods [here](/docs/calldata-attribution)
+
+<Info>
+  To explore how to configure custom metadata to your source, explore our guide [here](/docs/marketplace-source-attribution).
+</Info>
+
+# Reservoir SDK
+
+After installing, you will set your source when you configure the Reservoir SDK. The source parameter can be any valid domain (e.g. explorer.reservoir.tools). You can reference the [full documentation](/reference/reservoir-sdk-jstsnode) if you want to adjust other parameters. Below is a simple example below showing where you set your source; in this case, the source is `yoursource.com`. If you leave this blank, these orders will have source set to null.
+
+<CodeGroup>
+  ```typescript typescript
+  import { createClient, reservoirChains } from "@reservoir0x/reservoir-sdk"
+
+  createClient({
+    chains: [{
+      ...reservoirChains.mainnet,
+      active: true,
+    }],
+    source: "yoursource.com" //You can replace this with your domain
+  });
+  ```
+</CodeGroup>
+
+# ReservoirKit
+
+After installing, you can set your source when you configure the ReservoirKit. Check out the [full documentation](/reference/installing-reservoirkit) if you want to see all possible params. Below is a simple example below showing where you set your source. The source is `yoursource.com`. If you leave this blank, these orders will have source set to null.
+
+<CodeGroup>
+  ```typescript typescript
+  import { reservoirChains } from '@reservoir0x/reservoir-sdk'
+  import {
+    ReservoirKitProvider,
+    darkTheme,
+  } from '@reservoir0x/reservoir-kit-ui'
+  import { WagmiConfig } from 'wagmi'
+
+  const wagmiClient = ...
+
+  const theme = darkTheme({
+    headlineFont: "Sans Serif",
+    font: "Serif",
+    primaryColor: "#323aa8",
+    primaryHoverColor: "#252ea5",
+  })
+
+  <ReservoirKitProvider
+    options={{
+      apiKey: "YOUR_KEY",
+      chains: [{
+        ...reservoirChains.mainnet,
+        active: true,
+      }],
+      source: "yoursource.com" //Set your source here!
+      ...
+    }}
+    theme={theme}
+  >
+    <WagmiConfig client={wagmiClient}>
+
+     { Your App }
+
+    </WagmiConfig>
+  </ReservoirKitProvider>
+  ```
+</CodeGroup>
+
+# Reservoir API
+
+<Warning>
+  [Reservoir SDK](#reservoir-sdk) includes helpers that abstract the process of iterating through steps, and returning callbacks that can be used to update your UI.
+</Warning>
+
+When you utilize our APIs for executing your transactions, you will set the source in your API call. This example has the source as `yoursource.com`. If left blank, your source will default to `null`.
+
+<CodeGroup>
+  ```curl curl
+  curl --request POST \
+       --url https://api.reservoir.tools/execute/list/v5 \
+       --header 'accept: */*' \
+       --header 'content-type: application/json' \
+       --header 'x-api-key: demo-api-key' \
+       --data '
+  {
+    "params": [
+      {
+        "orderKind": "seaport-v1.5",
+        "options": {
+          "seaport-v1.4": {
+            "useOffChainCancellation": true
+          },
+          "seaport-v1.5": {
+            "useOffChainCancellation": true
+          },
+          "alienswap": {
+            "useOffChainCancellation": true
+          }
+        },
+        "orderbook": "reservoir",
+        "automatedRoyalties": true,
+        "currency": "0x0000000000000000000000000000000000000000",
+        "token": "0x8d04a8c79ceb0889bdd12acdf3fa9d207e000000:123456",
+        "weiPrice": "1000000000000000000"
+      }
+    ],
+    "maker": "0xF296178d553C8Ec21A2fBD2c5dDa8CA9ac000000",
+    "source": "yoursource.com" #Set your source here!
+  }
+  '
+  ```
+</CodeGroup>

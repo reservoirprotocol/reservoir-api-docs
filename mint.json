@@ -1,91 +1,460 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Reservoir Tools",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "light": "/images/a1c3503-Landing_Page_Logo_Black.svg",
+    "dark": "/images/c280a9d-Landing_Page_Logo_White.svg"
   },
-  "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
-    "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
-    }
+    "primary": "#5f67d2",
+    "light": "#5f67d2",
+    "dark": "#5f67d2"
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
-  ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+  "favicon": "/ee1e01b-reservoir.svg",
+  "primaryTab": {
+    "name": "Guides"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    }
-  ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Introduction",
+      "pages": ["docs/marketplace-toolkit"]
+    },
+    {
+      "group": "Solutions",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "docs/custom-marketplaces",
+        "docs/cross-chain-execution",
+        "docs/instant-bridging",
+        "docs/walletportfolio-app",
+        "docs/gaming",
+        "docs/embedded-buying-selling",
+        "docs/data-and-analytics",
+        "docs/market-making",
+        "docs/nft-liquidity-protocols",
+        "docs/collect"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Features",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "docs/spam-detection",
+        "docs/royalties",
+        "docs/minting",
+        "docs/custom-fees",
+        "docs/referral-rewards",
+        "docs/add-instant-sell",
+        "docs/buy-sweep",
+        "docs/bulk-order-creation",
+        "docs/floor-prices",
+        "docs/flagged-tokens"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Guides",
       "pages": [
-        "api-reference/introduction"
+        "docs/sweeping",
+        "docs/hosting-a-reservoir-discord-nft-bot",
+        "docs/configure-custom-source-metadata",
+        "docs/how-to-configure-metadata",
+        "docs/accessing-native-liquidity",
+        "docs/how-to-get-distribution-for-your-protocol-using-reservoir",
+        "docs/mints",
+        {
+          "group": "Bulk Syncing with Reservoir APIs",
+          "pages": [
+            "docs/bulk-syncing-with-reservoir-apis",
+            "docs/syncing-sales",
+            "docs/syncing-asks",
+            "docs/syncing-bids"
+          ]
+        },
+        "docs/import-an-existing-api-key",
+        "docs/protect-your-api-key",
+        "docs/add-feesontop",
+        "docs/list-in-different-erc20s",
+        "docs/buy-in-different-erc-20s",
+        "docs/cross-post-orders",
+        "docs/off-chain-cancellation",
+        "docs/how-is-washtradingscore-determined",
+        "docs/set-your-source-onchain",
+        "docs/place-trait-bids"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Core Components",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "docs/nft-liquidity-router",
+        {
+          "group": "Global NFT Orderbook",
+          "pages": [
+            "docs/global-nft-orderbook",
+            "docs/data-lake",
+            "docs/indexer"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Resources",
+      "pages": [
+        "docs/calldata-attribution",
+        "docs/marketplace-fees-royalties",
+        "docs/security-and-smart-contract-audits",
+        "docs/order-id-creation-logic",
+        "docs/glossary",
+        {
+          "group": "FAQs",
+          "pages": [
+            "docs/is-the-reservoir-api-free-to-use",
+            "docs/how-do-i-get-a-reservoir-api-key",
+            "docs/can-i-set-custom-fees",
+            "docs/can-i-get-blur-listings-and-bids",
+            "docs/can-i-get-english-auctions",
+            "docs/is-lazy-minting-nfts-supported",
+            "docs/is-openrarity-supported",
+            "docs/where-do-reservoir-native-orders-get-distributed",
+            "docs/how-quickly-are-orders-ingested-from-marketplaces",
+            "docs/how-quickly-are-my-orders-distributed",
+            "docs/has-the-router-contract-been-audited",
+            "docs/what-is-the-router-contract",
+            "docs/what-is-the-oracles-address",
+            "docs/what-is-weth",
+            "docs/what-are-trait-specific-bids",
+            "docs/why-are-the-number-of-listings-different",
+            "docs/do-i-pay-gas-to-cancel-orders",
+            "docs/do-you-support-erc-2981-nft-royalty-standard"
+          ]
+        },
+        "docs/logos"
+      ]
+    },
+    {
+      "group": "Introduction",
+      "pages": [
+        "reference/what-is-reservoir",
+        "reference/dashboard-sign-up",
+        {
+          "group": "Supported Marketplaces",
+          "pages": [
+            "reference/supported-marketplaces",
+            "reference/opensea-api",
+            "reference/blur-api",
+            "reference/magic-eden-api",
+            "reference/x2y2",
+            "reference/looksrare",
+            "reference/sudoswap",
+            "reference/nftx",
+            "reference/other-supported-marketplaces"
+          ]
+        },
+        {
+          "group": "Supported Chains",
+          "pages": [
+            "reference/supported-chains",
+            "reference/ethereum",
+            "reference/polygon-nft-api",
+            "reference/base-api",
+            "reference/abstract-nft-api",
+            "reference/ancient8",
+            "reference/apechain-nft-api",
+            "reference/astar-zkevm-nft-api",
+            "reference/arbitrum-nft-api",
+            "reference/arbitrum-nova-api",
+            "reference/avalanche-api",
+            "reference/b3-nft-api",
+            "reference/blast",
+            "reference/bsc-api",
+            "reference/bitlayer-nft-api",
+            "reference/boss-nft-api",
+            "reference/cyber-nft-api",
+            "reference/degen-nft-api",
+            "reference/flow-nft-api",
+            "reference/forma-nft-api",
+            "reference/hychain-nft-api",
+            "reference/linea-api",
+            "reference/minato-nft-api",
+            "reference/nebula-nft-api",
+            "reference/optimism",
+            "reference/polygon-zkevm-nft-api",
+            "reference/redstone-nft-api",
+            "reference/scroll-nft-api",
+            "reference/sei-nft-api",
+            "reference/shape-nft-api",
+            "reference/xai-nft-api",
+            "reference/zero-nft-api",
+            "reference/zksync-api",
+            "reference/zora-api",
+            "reference/supported-testnets"
+          ]
+        },
+        "reference/usage-credits"
+      ]
+    },
+    {
+      "group": "Tools",
+      "pages": [
+        "reference/getting-started",
+        "reference/overview",
+        {
+          "group": "Reservoir SDK (Typescript)",
+          "pages": [
+            "reference/reservoir-sdk-jstsnode",
+            "reference/typescript-api-typings",
+            "reference/adapters",
+            "reference/buytoken",
+            "reference/minttoken",
+            "reference/listtoken",
+            "reference/placebid",
+            "reference/acceptoffer",
+            "reference/cancelorder",
+            "reference/transfer-tokens"
+          ]
+        },
+        {
+          "group": "ReservoirKit (React)",
+          "pages": [
+            "reference/reservoirkit",
+            "reference/installing-reservoirkit",
+            "reference/reservoirkit-hooks",
+            "reference/theming",
+            "reference/troubleshooting",
+            "reference/buymodal",
+            "reference/listmodal",
+            "reference/bidmodal",
+            "reference/acceptbid-modal",
+            "reference/cartpopover",
+            "reference/cancellistingmodal",
+            "reference/cancelbidmodal",
+            "reference/editlistingmodal",
+            "reference/editbidmodal",
+            "reference/collectmodal-mint-sweep",
+            "reference/mintmodal",
+            "reference/sweepmodal",
+            "reference/rendertokenmedia",
+            "reference/collectbutton"
+          ]
+        },
+        "reference/open-source-marketplace",
+        {
+          "group": "Websockets",
+          "pages": [
+            "reference/websockets",
+            "reference/asks",
+            "reference/bids",
+            "reference/sale",
+            "reference/transfer",
+            "reference/token",
+            "reference/token-attribute",
+            "reference/collection",
+            "reference/best-practices"
+          ]
+        },
+        "reference/reservoir-sync-node"
+      ]
+    },
+    {
+      "group": "NFT Trading APIs",
+      "pages": [
+        "reference/creating-and-filling-orders",
+        "reference/marketplace/create-bids",
+        "reference/marketplace/buy-tokens",
+        "reference/marketplace/cancel-orders",
+        "reference/marketplace/create-listings",
+        "reference/marketplace/mint-tokens",
+        "reference/marketplace/sell-tokens",
+        "reference/marketplace/transfer-tokens",
+        {
+          "group": "Manage Orders",
+          "pages": [
+            "reference/manage-orders/check-cross-posting-status",
+            "reference/manage-orders/check-transaction-status",
+            "reference/manage-orders/submit-signed-orders"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "NFT Marketplace APIS",
+      "pages": [
+        {
+          "group": "Tokens",
+          "pages": [
+            "reference/tokens/tokens",
+            "reference/tokens/token-events-bootstrap",
+            "reference/tokens/token-prices",
+            "reference/tokens/token-ids",
+            "reference/tokens/flagged-tokens",
+            "reference/tokens/token-asks-listings",
+            "reference/tokens/token-bids-offers",
+            "reference/tokens/create-token-set",
+            "reference/tokens/refresh-token"
+          ]
+        },
+        {
+          "group": "Collections",
+          "pages": [
+            "reference/collections/collections",
+            "reference/collections/search-collections-cross-chain",
+            "reference/collections/top-trending-collections",
+            "reference/collections/top-trending-mints",
+            "reference/collections/search-collections",
+            "reference/collections/collection-bids-offers",
+            "reference/collections/marketplace-configurations-by-collection",
+            "reference/collections/top-traders",
+            "reference/collections/create-collection-set",
+            "reference/collections/create-contracts-set",
+            "reference/collections/refresh-collection"
+          ]
+        },
+        {
+          "group": "Attributes",
+          "pages": [
+            "reference/attributes/explore-attributes",
+            "reference/attributes/all-attributes"
+          ]
+        },
+        {
+          "group": "Activity",
+          "pages": [
+            "reference/activity/collection-activity",
+            "reference/activity/users-activity",
+            "reference/activity/token-activity"
+          ]
+        },
+        {
+          "group": "Sources",
+          "pages": ["reference/sources/sources-list"]
+        },
+        {
+          "group": "Management",
+          "pages": [
+            "reference/management/get-rate-limits-for-the-given-api-key",
+            "reference/management/disable-or-reenable-metadata-for-a-collection",
+            "reference/management/update-collections-nsfw-status",
+            "reference/management/update-collections-spam-status",
+            "reference/management/create-or-update-an-external-cosigner",
+            "reference/management/invalidate-stale-orders",
+            "reference/management/disable-or-reenable-metadata-for-a-token",
+            "reference/management/update-token-flag-status",
+            "reference/management/update-the-tokens-nsfw-status",
+            "reference/management/update-the-tokens-spam-status",
+            "reference/management/override-collections",
+            "reference/management/override-collections-1",
+            "reference/management/simulate-any-given-mint",
+            "reference/management/simulate-any-given-order"
+          ]
+        },
+        {
+          "group": "Accounts",
+          "pages": [
+            "reference/accounts/user-asks-listings",
+            "reference/accounts/user-collections",
+            "reference/accounts/user-bids-offers",
+            "reference/accounts/user-tokens",
+            "reference/accounts/user-top-bids"
+          ]
+        },
+        {
+          "group": "Redirects",
+          "pages": [
+            "reference/redirects/redirect-to-the-given-collection-image",
+            "reference/redirects/redirect-response-to-the-given-currency-address-icon",
+            "reference/redirects/redirect-response-to-the-given-source-logo",
+            "reference/redirects/redirect-response-to-the-given-token-image",
+            "reference/redirects/redirect-response-to-the-given-source-token-page"
+          ]
+        },
+        {
+          "group": "Misc",
+          "pages": [
+            "reference/misc/attach-a-signature-to-an-existing-auth-challenge",
+            "reference/misc/off-chain-cancel-orders",
+            "reference/misc/deposit-funds-to-the-solver",
+            "reference/misc/attach-a-signature-to-an-existing-permit",
+            "reference/misc/attach-a-signature-to-an-existing-pre-signature",
+            "reference/misc/send-the-success-status-of-an-execution",
+            "reference/misc/indirectly-fill-an-order-via-a-solver",
+            "reference/misc/get-the-status-of-an-execution",
+            "reference/misc/get-the-capacity-for-indirect-filling-via-a-solver"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "NFT Data APIs",
+      "pages": [
+        "reference/nft-data-overview",
+        {
+          "group": "Orders",
+          "pages": [
+            "reference/orders/asks-listings",
+            "reference/orders/bids-offers",
+            "reference/orders/orders-depth"
+          ]
+        },
+        {
+          "group": "Sales",
+          "pages": ["reference/sales/sales"]
+        },
+        {
+          "group": "Transfers",
+          "pages": ["reference/transfers/bulk-historical-transfers"]
+        },
+        {
+          "group": "Events",
+          "pages": [
+            "reference/events/collection-floor-changes",
+            "reference/events/collection-top-bid-changes",
+            "reference/events/token-price-changes"
+          ]
+        },
+        {
+          "group": "Owners",
+          "pages": [
+            "reference/owners/owners",
+            "reference/owners/common-collections",
+            "reference/owners/owners-intersection",
+            "reference/owners/owners-collection-distribution",
+            "reference/owners/owners-collection-set-distribution"
+          ]
+        },
+        {
+          "group": "Stats",
+          "pages": [
+            "reference/stats/stats",
+            "reference/stats/daily-collection-volume"
+          ]
+        },
+        {
+          "group": "Chain",
+          "pages": ["reference/chain/chain-stats"]
+        }
+      ]
+    },
+    {
+      "group": "NFT Data Oracles",
+      "pages": [
+        "reference/introduction",
+        {
+          "group": "Oracle",
+          "pages": [
+            "reference/oracle/collection-bid-ask-midpoint",
+            "reference/oracle/collection-floor",
+            "reference/oracle/collection-top-bid-oracle",
+            "reference/oracle/token-status-oracle"
+          ]
+        }
       ]
     }
   ],
-  "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
-  }
+  "tabs": [
+    {
+      "name": "Guides",
+      "url": "/docs"
+    },
+    {
+      "name": "Reference Docs",
+      "url": "/reference"
+    }
+  ]
 }

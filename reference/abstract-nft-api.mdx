@@ -1,0 +1,46 @@
+---
+title: "Abstract Testnet NFT API"
+description: "Learn how to access Abstract Testnet NFT data & trading through Reservoir's developer tools"
+---
+
+<Info>
+  Today, we are providing access to Abstract testnet. When mainnet is launched,
+  we will support it on day one.
+</Info>
+
+# Getting Started with Abstract on Reservoir
+
+Reservoir offers access to Abstract testnet & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+- **Abstract Testnet API Base URL** - You can access all Reservoir APIs by using the `https://api-abstract-testnet.reservoir.tools/` base URL. When using the API reference docs for Abstract, make sure to change the base URL to the one above.
+- **Recommended Testnet Collection** - Our recommended Abstract NFT collection to test with is [Reservoir ERC721 Test Collection](https://explorer.testnet.abs.xyz/address/0x41caaa5740f954f196685a21d72cdf1dada5e5b5) contract address: `0x41caaa5740f954f196685a21d72cdf1dada5e5b5 `. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [Abstract Marketplace & Explorer](https://testnets.reservoir.tools/abstractTestnet).
+
+## Access Abstract Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across the Reservoir ecosystem. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+- [Get Aggregated Abstract Listings](/reference/getordersasksv5)
+- [Get Aggregated Abstract Offers](/reference/getordersbidsv6)
+- [Get Abstract Floor Prices](/reference/getcollectionsv7)
+- [Get Abstract Sales Volume](/reference/getcollectionsdailyvolumesv1)
+- [Get Abstract Collection Metadata](/reference/gettokensv7)
+
+## Trading on Abstract with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On Abstract, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+- [Buy Abstract NFTs](/reference/postexecutebuyv7)
+- [Sell Abstract NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have Abstract support. Check out our list and bid endpoints below:
+
+- [List Abstract NFTs](/reference/postexecutelistv5)
+- [Bid on Abstract NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on Abstract
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full Abstract support.

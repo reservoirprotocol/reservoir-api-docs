@@ -1,0 +1,41 @@
+---
+title: "Zero NFT API"
+description: "Learn how to access Zero NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with Zero on Reservoir
+
+Reservoir offers access to Zero & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **Zero API Base URL** - You can access all Reservoir APIs by using the `https://api-zero.reservoir.tools` base URL. When using the API reference docs for Zero, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended Zero NFT collection to test with is [Reservoir ERC721 Test Collection](https://zero-network.calderaexplorer.xyz/token/0xDA66B1Fbc64Dd904b3427f925D2D1d3fD2a26Bd2) contract address: `0xda66b1fbc64dd904b3427f925d2d1d3fd2a26bd2 `. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [Zero Marketplace & Explorer](https://explorer.reservoir.tools/zero).
+
+## Access Zero Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across the Reservoir ecosystem. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated Zero Listings](/reference/getordersasksv5)
+* [Get Aggregated Zero Offers](/reference/getordersbidsv6)
+* [Get Zero Floor Prices](/reference/getcollectionsv7)
+* [Get Zero Sales Volume](/reference/getcollectionsdailyvolumesv1)
+* [Get Zero Collection Metadata](/reference/gettokensv7)
+
+## Trading on Zero with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On Zero, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy Zero NFTs](/reference/postexecutebuyv7)
+* [Sell Zero NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have Zero support. Check out our list and bid endpoints below:
+
+* [List Zero NFTs](/reference/postexecutelistv5)
+* [Bid on Zero NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on Zero
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full Zero support.

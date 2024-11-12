@@ -1,0 +1,27 @@
+---
+title: "Spam Detection"
+description: "Easily identify spam collections and tokens with Reservoir APIs."
+---
+
+To ensure a safe and trustworthy environment for builders and their users, Reservoir has implemented comprehensive measures to identify and surface spam tokens and collections.
+
+This guide will explore how Reservoir identifies these collections and tokens and surfaces this information for builders.
+
+**Automated Spam Identification** Reservoir uses a combination of signals to help automatically identify spam collections and tokens. These include:
+
+* Non-standard contracts
+* Airdrops
+* Suspicious wallet activity
+* Lack of or low sales volume
+* Incomplete collection and token metadata
+
+**Collaboration with Trustworthy Partners** Reservoir actively engages in partnerships and collaborations with reputable industry players, including trusted artists, collectors, and marketplaces. These alliances provide additional layers of scrutiny and validation, ensuring that NFT collections listed on the platform meet the highest standards of quality and authenticity. By leveraging expertise from trusted partners, Reservoir enhances its ability to detect and prevent spam and scam NFT collections.
+
+**Community Reporting** Reservoir actively encourages its community members to report any suspicious NFT collections or tokens they come across on the platform. This crowdsourced approach allows for efficient identification and immediate action against potential scams. You can report any collection or token you believe is spam [here](/docs#tech-support).
+
+### How to Use Spam Data
+
+[Collections](/reference/getcollectionsv7), [Tokens](/reference/gettokensv6) and [User Tokens](/reference/getusersusertokensv7) endpoints return `is_spam` field which can be used to identify spam collections and tokens. This data gives builders flexibility to handle spam assets appropriately based on their own customers and use cases.
+
+[Users Tokens](/reference/getusersusertokensv7) can also be called with `excludeSpam` to automatically filter out any tokens that have been flagged as spam.
+

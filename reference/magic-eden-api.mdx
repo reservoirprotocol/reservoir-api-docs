@@ -1,0 +1,43 @@
+---
+title: "Magic Eden API"
+description: "Access Magic Eden data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with Magic Eden on Reservoir
+
+Reservoir offers access to Magic Eden & 150+ other marketplaces through our simple, and powerful APIs, SDKs & UI kits. To get started you can [get an API key](/reference/dashboard-sign-up) which has a [free plan & paid subscriptions](https://reservoir.tools/pricing). Magic Eden orders and data are included in all of our endpoints. However, should you want to access Magic Eden data and trading specifically, you can. The following sections outline how to access Magic Eden data and trading using Reservoir.
+
+# Getting Magic Eden Data & Orders
+
+* **Sales** - Get Magic Eden Sales from our [Sales API](/reference/getsalesv6). Filtering using the API is not currently supported, so get all sales for a token, collection, or attribute, and filter on the front end using `"orderSource": "magiceden.io"`or `"fillSource": "magiceden.io"`. When using `orderSource` you are filtering by sales whose orders are native to Magic Eden, while filtering on `fillSource` will return all sales that were filled on Magic Eden, regardless of the order origination marketplace.
+
+* **Asks (Listings)** - Magic Eden asks (listings) can be accessed through our [Asks API.](/reference/getordersasksv5) To get Magic Eden listings, ensure to set the `source=magiceden.io`. [An example of the response.](https://api.reservoir.tools/orders/asks/v5?sources=magiceden.io)
+
+* **Bids (Offers)** - Magic Eden bids (offers) can be accessed through our [Bids API.](/reference/getordersbidsv6) To get Magic Eden Offers, ensure to set the `source=magiceden.io`. [An example of the response.](https://api.reservoir.tools/orders/bids/v6?sources=magiceden.io)
+
+# Trading on Magic Eden through Reservoir
+
+* **Buying** - Get the [listings data](/reference/getordersasksv5) and fill those orders either using the [API ](/reference/postexecutebuyv7)or [SDK](/reference/buytoken) *(recommended)*
+* **Selling** - Get the [bid data](/reference/getordersbidsv6) and fill the bids either using the [API ](/reference/postexecutesellv7)or [SDK](/reference/acceptoffer) *(recommended)*
+* **Creating Asks (Listings)** - Create the listing through the [API ](/reference/postexecutelistv5)or the [SDK](/reference/listtoken) *(recommended)*, set the `"orderKind": "seaport-v1.5"` & `"orderbook": "reservoir"`
+* **Creating Bids (Offers)** - Create the offer through the [API ](/reference/postexecutebidv5)or the [SDK](/reference/placebid) *(recommended)* set the `"orderKind": "seaport-v1.5"` & `"orderbook": "reservoir"`
+
+# Magic Eden FAQ
+
+* Is there a way to get Magic Eden Verified status?
+
+  * Yes, you can get Magic Eden Verified status by using our [Collections API](/reference/getcollectionsv7) and checking the `"magicedenVerificationStatus"` field. [Sample Response](https://api.reservoir.tools/collections/v7?id=0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63\&source=magiceden.io)
+
+* Do you have support for checking NFTs that are flagged on Magic Eden?
+
+  * Yes, we have a multitude of ways for including or excluding flagged results from our endpoints. [Our full guide is here](/docs/flagged-tokens)
+
+# Magic Eden Overview
+
+Recently, Magic Eden has launched as a leading Ethereum and Polygon NFT marketplace, boasting one of the fastest growing volumes in the space. The platform's creator focus, user-friendly design, and an array of unique features make it an excellent choice for those wishing to buy or sell NFTs.
+
+* Magic Eden operates on the Ethereum, Polygon, Solana, and Bitcoin NFTs, providing users with flexibility across chains and lower fees.
+* Magic Eden is a rare unicorn-status company and is backed by heavyweight venture capital firms, such as Electric Capital and Greylock Partners.
+* The platform boasts over 22 million unique monthly users and has facilitated over $1.9 billion in trading volume, demonstrating its substantial reach in the NFT world.
+
+Magic Eden is a rapidly expanding NFT marketplace that has earned its status as a key player in the industry. Offering numerous features that are unmatched on other marketplaces, Magic Eden is poised to cater to the needs of both professional NFT traders and enthusiasts alike.

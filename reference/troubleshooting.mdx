@@ -1,0 +1,74 @@
+---
+title: "Troubleshooting"
+description: "Having issues with ReservoirKit? Make sure to check this guide first."
+---
+
+# CommonJs Module error
+
+ReservoirKit is built and exported as an ESM (ECMAScript Module) package. Consequently, trying to import it as a CommonJS module typically leads to errors, similar to the one shown below. To address this, you should modify your `tsconfig.json` file and your bundler configuration, replacing the use of `commonjs` with `module`. This update ensures compatibility with the ESM format of ReservoirKit.
+
+![](/images/reference/fb5a4fc-Screenshot_2024-01-09_at_11.30.38.png)
+
+# Nextjs commonjs module error
+
+`SyntaxError: Named export 'Arrow' not found. The requested module '@radix-ui/react-popover' is a CommonJS module, which may not support all module.exports as named exports. CommonJS modules can always be imported via the default export, for example using:`
+
+**Update:** This issue has now been patched in version 1.8.0+. Continue to use the solutions below for older versions.
+
+ReservoirKit UI 0.7+ uses esmodules and drops commonjs module support in order to support wagmi 0.8+. The error message may vary but will always suggest importing the package differently. This is an issue when using ReservoirKit UI in a nextjs application. This issue is not specific to the ReservoirKit UI package and is impacting many other [projects](https://github.com/ant-design/ant-design-mobile/blob/3c87f1c5b16c39c70e494159732f6bb1f0a08c01/docs/guide/ssr.en.md) that have switched to esmodules. Thankfully there are a couple of solutions to solve the issue above:
+
+**Next 13+**
+
+```
+// next.config.js
+const nextConfig = {
+  experimental: {
+    transpilePackages: ['@reservoir0x/reservoir-kit-ui'],
+  },
+};
+
+module.exports = nextConfig;
+```
+
+This solution uses the experimental nextjs flag to transpile packages to whatever nextjs's packager is expecting. Add the flag to your next.config.js file.
+
+[https://nextjs.org/docs/app/api-reference/next-config-js/transpilePackages](https://nextjs.org/docs/app/api-reference/next-config-js/transpilePackages)
+
+**Nextjs 12 and below:** `yarn add -D next-transpile-modules`
+
+```
+const withTM = require('next-transpile-modules')([
+  '@reservoir0x/reservoir-kit-ui',
+]);
+
+module.exports = withTM({
+  // other Next.js configuration in your project
+});
+```
+
+Older versions of Nextjs don't have the luxury of a simple flag, instead you need to install the `next-transpile-modules` plugin and add the following code to your next.config.js file.
+
+# TypeScript `skipLibCheck`
+
+***
+
+**`reservoir-sdk` & `reservoir-kit-ui` Dependency Notice**
+
+`reservoir-sdk` & `reservoir-kit-ui` both integrate types from their child-dependencies. Unfortunately, some of these dependencies have .d.ts files with potentially inaccurate or incorrect type declarations. As a result, when our libraries import these types, discrepancies and build errors can arise.
+
+To mitigate this, please set `skipLibCheck: true` in your `tsconfig.json` file. This will skip the type checking of those child dependencies .d.ts files and resolve the errors. Here's an example of two errors that might be emitted due to these type declaration inconsistencies:
+
+`node_modules/viem/dist/types/actions/wallet/writeContract.d.ts:12:683 - error TS2536: Type '"value"' cannot be used to index type 'SendTransactionParameters<TChain, TAccount, TChainOverride>'.`
+
+`node_modules/@stitches/react/types/stitches.d.ts:53:79 - error TS2503: Cannot find namespace 'React'.53 string extends Composers[K] ? Composers[K] \: Composers[K] extends string | React.ComponentType<any> | Util.Function ? Composers[K] \: RemoveIndex<CSS> & {`
+
+To learn more about the `skipLibCheck` compiler option checkout [TypeScripts documentation](https://www.typescriptlang.org/tsconfig#skipLibCheck).
+
+# Balance check failing/incorrect calculated price
+
+If you encounter an issue where any of the modals inaccurately calculate the price, consider normalizing the token to lowercase as a first troubleshooting step. An illustrative example of this problem can be observed in the `BuyModal`. To resolve this, use apple something similar to: `token.toLowerString()` to the token prior to passing it into the Modal's properties. This simple modification often resolves the price calculation discrepancy.
+
+<Frame caption="Incorrect price due to mismatched upper/lower case contract:tokenId0X7c9ab81d999066a0b81b77dc92b90eec389e9dc7:3951">
+  <img src="/images/reference/1f304a0-Screenshot_2024-01-25_at_8.43.12_AM.png" />
+
+</Frame>

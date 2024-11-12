@@ -1,0 +1,41 @@
+---
+title: "Hychain NFT API"
+description: "Learn how to access Hychain NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with Hychain on Reservoir
+
+Reservoir offers access to Hychain & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **Hychain API Base URL** - You can access all Reservoir APIs by using the `https://api-hychain.reservoir.tools` base URL. When using the API reference docs for Hychain, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended Hychain NFT collection to test with is [Reservoir ERC721 Test Collection](https://explorer.hychain.com/address/0x2826bb1e24a5f75888383eb6cbcbae52f325701e) contract address: `0x2826bb1e24a5f75888383eb6cbcbae52f325701e `. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [Hychain Marketplace & Explorer](https://explorer.reservoir.tools/hychain).
+
+## Access Hychain Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across the Reservoir ecosystem. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated Hychain Listings](/reference/getordersasksv5)
+* [Get Aggregated Hychain Offers](/reference/getordersbidsv6)
+* [Get Hychain Floor Prices](/reference/getcollectionsv7)
+* [Get Hychain Sales Volume](/reference/getcollectionsdailyvolumesv1)
+* [Get Hychain Collection Metadata](/reference/gettokensv7)
+
+## Trading on Hychain with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On Hychain, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy Hychain NFTs](/reference/postexecutebuyv7)
+* [Sell Hychain NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have Hychain support. Check out our list and bid endpoints below:
+
+* [List Hychain NFTs](/reference/postexecutelistv5)
+* [Bid on Hychain NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on Hychain
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full Hychain support.

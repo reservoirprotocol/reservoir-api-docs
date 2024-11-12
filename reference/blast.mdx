@@ -1,0 +1,41 @@
+---
+title: "Blast NFT API"
+description: "Learn how to access Blast NFT data & trading through Reservoir's developer tools"
+---
+
+# Getting Started with Blast on Reservoir
+
+Reservoir offers access to Blast & a number of EVM-compatible chains through our simple, yet powerful APIs, SDKs & UI kits for NFT trading and data. To get started [create an account](https://dashboard.reservoir.tools/) and [get an API key](/reference/dashboard-sign-up).
+
+* **Blast API Base URL** - You can access all Reservoir APIs by using the `https://api-blast.reservoir.tools` base URL. When using the API reference docs for Blast, make sure to change the base URL to the one above.
+* **Recommended Test Collection** - Our recommended Blast NFT collection to test with is [BLORB](https://blastscan.io/address/0xbc9a332209555badccf2592ab97f5ce66be69c27) contract address: `0xbc9a332209555badccf2592ab97f5ce66be69c27`. When using the API reference docs, use the collection above to test responses.
+
+To get a better sense of what we offer, check out of reference [Blast Marketplace & Explorer](https://explorer.reservoir.tools/blast/collection/0xbc9a332209555badccf2592ab97f5ce66be69c27).
+
+## Access Blast Data with Reservoir
+
+Reservoir gives you access to complete NFT metadata and market data aggregated from across the Reservoir ecosystem. You can learn more about our available data in our [NFT Data Overview](/reference/nft-data-overview).
+
+* [Get Aggregated Blast Listings](/reference/getordersasksv5)
+* [Get Aggregated Blast Offers](/reference/getordersbidsv6)
+* [Get Blast Floor Prices](/reference/getcollectionsv7)
+* [Get Blast Sales Volume](/reference/getcollectionsdailyvolumesv1)
+* [Get Blast Collection Metadata](/reference/gettokensv7)
+
+## Trading on Blast with Reservoir
+
+Reservoir makes it simple to not only get market data and orders, but execute and create orders directly through our APIs and tools. To learn more about trading with Reservoir, check out our [NFT Trading Overview](/reference/creating-and-filling-orders). On Blast, you can:
+
+**Execute orders** from across major marketplaces, by using the trading APIs or the SDK, which wraps the APIs into simple methods. Check out the buy and sell endpoints below:
+
+* [Buy Blast NFTs](/reference/postexecutebuyv7)
+* [Sell Blast NFTs](/reference/postexecutesellv7)
+
+**Create orders** with [custom fees](/docs/custom-fees) and [royalties](/docs/royalties) that will get distributed across the Reservoir ecosystem. Or cross-post orders to major marketplaces that have Blast support. Check out our list and bid endpoints below:
+
+* [List Blast NFTs](/reference/postexecutelistv5)
+* [Bid on Blast NFTs](/reference/postexecutebidv5)
+
+## Reservoir Tools Available on Blast
+
+All Reservoir tools including [APIs](/reference/overview), [SDKs](/reference/reservoir-sdk-jstsnode) & [ReservoirKit](/reference/reservoirkit) have full Blast support.
