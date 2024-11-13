@@ -17,7 +17,22 @@
   "navigation": [
     {
       "group": "Introduction",
-      "pages": ["docs/marketplace-toolkit"]
+      "pages": [
+        "docs/marketplace-toolkit",
+        "docs/what-is-reservoir",
+        "docs/supported-marketplaces",
+        {
+          "group": "Reservoir Tools",
+          "pages": [
+            "docs/marketplace-toolkit",
+            "docs/creating-and-filling-orders",
+            "docs/reservoirkit",
+            "docs/introduction-1",
+            "docs/dune-analytics-dataset",
+            "docs/websockets"
+          ]
+        }
+      ]
     },
     {
       "group": "Solutions",
@@ -234,6 +249,7 @@
             "reference/collectbutton"
           ]
         },
+        "reference/dune-analytics-dataset",
         "reference/open-source-marketplace",
         {
           "group": "Websockets",
@@ -445,6 +461,10 @@
           ]
         }
       ]
+    },
+    {
+      "group": "Changelog",
+      "pages": ["changelog/product-updates"]
     }
   ],
   "tabs": [
@@ -455,6 +475,10 @@
     {
       "name": "Reference Docs",
       "url": "/reference"
+    },
+    {
+      "name": "Changelog",
+      "url": "/changelog"
     }
   ]
 }
