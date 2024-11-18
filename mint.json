@@ -14,6 +14,7 @@
   "primaryTab": {
     "name": "Guides"
   },
+  "openapi": ["https://api.reservoir.tools/admin/open-api"],
   "navigation": [
     {
       "group": "Introduction",
